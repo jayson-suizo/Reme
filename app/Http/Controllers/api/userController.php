@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\Http\Requests\userRegistrationRequest;
+use Illuminate\Support\Facades\Input;
 
 class userController extends Controller
 {
@@ -36,28 +38,28 @@ class userController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
-
-
+    public function register(userRegistrationRequest $request)
+    {   $data = Input::all();
+        $validator = validator($data);
+        print_r($validator);
+        die;
         if ($validator->fails()) {
+            echo 1;
+            die;
             return response()->json(
             	['error'=>$validator->errors()], 401);            
+        }else{
+            echo 1;
+            die;
         }
 
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        // $input = $request->all();
+        // $input['password'] = bcrypt($input['password']);
+        // $user = User::create($input);
+        // $success['token'] =  $user->createToken('MyApp')->accessToken;
+        // $success['name'] =  $user->name;
 
-        return response()->json(['success'=>$success], $this->successStatus);
+        // return response()->json(['success'=>$success], $this->successStatus);
 
     }
 
