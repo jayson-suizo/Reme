@@ -27,13 +27,14 @@ class userRegistrationRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
             'c_password' => 'required|same:password',
             'gender' => 'required|in:male,female',
             'age' => 'required|numeric',
             'profession_type' => 'required|numeric',
             'group_type' => 'required|numeric',
+            'role' => 'required|in:admin,customer',
         ];
     }
 

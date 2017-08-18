@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Requests\userRegistrationRequest;
 use Illuminate\Support\Facades\Input;
+use App\Repositories\User\UserInterface as UserInterface;
 
 class userController extends Controller
 {
-    public $successStatus = 200;
-
-
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+    }
     /**
      * login api
      *
@@ -42,8 +44,10 @@ class userController extends Controller
     {
         $data = Input::all();
         $data["name"] = $data["first_name"] .' '.$data["last_name"];
-        
-        //return response()->json(['success'=>$success], $this->successStatus);
+        $data["password"] = bcrypt($data["password"]);
+        $user = $this->user->insert($data);
+
+        return response()->json(['success'=> $user]);
 
     }
 

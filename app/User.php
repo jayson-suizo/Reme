@@ -27,4 +27,25 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function getAll()
+    {
+        return static::all();
+    }
+
+    public function findUser($id)
+    {
+        return static::find($id);
+    }
+
+     public function InsertUser($data)
+    {
+        return static::create($data);
+    }
+
+    public function deleteUser($id)
+    {
+        return static::find($id)->delete();
+    }
 }
