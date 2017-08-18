@@ -38,28 +38,12 @@ class userController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function register(userRegistrationRequest $request)
-    {   $data = Input::all();
-        $validator = validator($data);
-        print_r($validator);
-        die;
-        if ($validator->fails()) {
-            echo 1;
-            die;
-            return response()->json(
-            	['error'=>$validator->errors()], 401);            
-        }else{
-            echo 1;
-            die;
-        }
-
-        // $input = $request->all();
-        // $input['password'] = bcrypt($input['password']);
-        // $user = User::create($input);
-        // $success['token'] =  $user->createToken('MyApp')->accessToken;
-        // $success['name'] =  $user->name;
-
-        // return response()->json(['success'=>$success], $this->successStatus);
+    public function register(userRegistrationRequest  $request)
+    {
+        $data = Input::all();
+        $data["name"] = $data["first_name"] .' '.$data["last_name"];
+        
+        //return response()->json(['success'=>$success], $this->successStatus);
 
     }
 
