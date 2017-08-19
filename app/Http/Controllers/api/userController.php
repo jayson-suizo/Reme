@@ -26,7 +26,10 @@ class userController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+
+        $remember = (Input::has('remember')) ? true : false;
+
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')],$remember)){
 
             $user = Auth::user();
             if($user["verification_code"] != null){
@@ -97,4 +100,19 @@ class userController extends Controller
        $user = Auth::user();
         return response()->json(['success' => $user], 200);
     }
+
+
+    /**
+     * logout api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {  
+       $request->user()->token()->revoke();
+       $request->user()->token()->delete(); 
+       return response()->json(['success' => "user successfully logout."], 200);
+    }
+
+
 }
