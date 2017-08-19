@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','first_name','last_name','user_type','gender',
+        'age','profession_type','group_type','role','verification_code'
     ];
 
     /**
@@ -25,6 +26,37 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','verification_code'
     ];
+
+
+    public function getAll()
+    {
+        return static::all();
+    }
+
+    public function findUser($id)
+    {
+        return static::find($id);
+    }
+
+     public function InsertUser($data)
+    {
+        return static::create($data);
+    }
+
+    public function deleteUser($id)
+    {
+        return static::find($id)->delete();
+    }
+
+    public function findByEmailUser($email)
+    {
+        return static::where("email",$email)->first();
+    }
+
+    public function updateUser($data)
+    {
+        return static::find($data['id'])->update($data);
+    }
 }
