@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Requests\userRegistrationRequest;
+use App\Http\Requests\verificationRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\UserInterface as UserInterface;
 use App\Mail\registration;
@@ -26,14 +27,18 @@ class userController extends Controller
      */
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
+            if($user["verification_code"] != null){
+               return response()->json(['error'=>'User not yet verified.'], 401); 
+            }else{
+                $success['token'] =  $user->createToken('MyApp')->accessToken;
+                return response()->json(['success' => $success], 200);
+            }
         }
         else{
             return response()->json(['error'=>'Unauthorised'], 401);
         }
-
     }
 
     /**
@@ -56,6 +61,33 @@ class userController extends Controller
 
 
     /**
+     * verify account api
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function verify(verificationRequest $request)
+    {
+        $data = Input::all();
+        $user = $this->user->findByEmail($data["email"]);
+
+        if(!$user){
+            return response()->json(['error'=>'Unauthorised'], 401);
+        }else{
+            if($user["verification_code"] != $data["verification_code"]){
+
+               return  response()->json(['error'=>'Verification code does not match, Please check if you have registered or maybe your account is already verified.'],401);
+            }else{
+                $update["id"] = $user["id"];
+                $update["verification_code"] = null;
+                $this->user->update($update);
+                return response()->json(['success'=>"successfully verified account."]);
+            }
+        }   
+    }
+
+
+    /**
      * details api
      *
      * @return \Illuminate\Http\Response
@@ -63,6 +95,6 @@ class userController extends Controller
     public function details()
     {  
        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
+        return response()->json(['success' => $user], 200);
     }
 }

@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','first_name','last_name','user_type','gender',
-        'age','professional_type','group_type','role','verification_code'
+        'age','profession_type','group_type','role','verification_code'
     ];
 
     /**
@@ -48,5 +48,15 @@ class User extends Authenticatable
     public function deleteUser($id)
     {
         return static::find($id)->delete();
+    }
+
+    public function findByEmailUser($email)
+    {
+        return static::where("email",$email)->first();
+    }
+
+    public function updateUser($data)
+    {
+        return static::find($data['id'])->update($data);
     }
 }

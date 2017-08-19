@@ -13,8 +13,7 @@ class UserRepository implements userInterface
     }
 
     public function getAll()
-    {	return 1;
-    	die;
+    {
         return $this->user->getAll();
     }
 
@@ -31,5 +30,15 @@ class UserRepository implements userInterface
     public function delete($id)
     {
         return $this->user->deleteUser($id);
+    }
+
+    public function findByEmail($email)
+    {
+        return $this->user->findByEmailUser($email);
+    }
+
+    public function update($data)
+    {
+        return $this->user->updateUser($data);
     }
 }

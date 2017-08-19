@@ -11,4 +11,8 @@ interface userInterface {
     public function insert($data);
 
     public function delete($id);
+
+    public function findByEmail($email);
+
+    public function update($data);
 }
