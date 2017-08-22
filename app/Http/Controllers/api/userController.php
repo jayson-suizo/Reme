@@ -35,13 +35,16 @@ class userController extends Controller
 
             $user = Auth::user();
             if($user["verification_code"] != null){
+
                return response()->json(['error'=>'User not yet verified.'], 401); 
             }else{
+
                 $success['token'] =  $user->createToken('MyApp')->accessToken;
                 return response()->json(['success' => $success], 200);
             }
         }
         else{
+
             return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
@@ -77,16 +80,21 @@ class userController extends Controller
         $user = $this->user->findByEmail($data["email"]);
 
         if(!$user){
+
             return response()->json(['error'=>'Unauthorised'], 401);
+
         }else{
+
             if($user["verification_code"] != $data["verification_code"]){
 
                return  response()->json(['error'=>'Verification code does not match, Please check if you have registered or maybe your account is already verified.'],401);
             }else{
+
                 $update["id"] = $user["id"];
                 $update["verification_code"] = null;
                 $this->user->update($update);
                 return response()->json(['success'=>"successfully verified account."]);
+
             }
         }   
     }
@@ -118,10 +126,12 @@ class userController extends Controller
        $data["name"] = $data["first_name"]." ".$data["last_name"];
        $updated = $this->user->update($data);
        if($updated){
+        
          $user = $this->user->find($id);
          return response()->json(['success' => $user], 200);
 
        }else{
+
          return response()->json(['error' => "server error."], 500);
        }
        
