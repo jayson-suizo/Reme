@@ -114,9 +114,17 @@ class userController extends Controller
 
        $id = Auth::user()->id;
        $data = Input::all();
-       print_r($data);
-       die; 
-       return response()->json(['success' => $user], 200);
+       $data["id"] = $id;
+       $data["name"] = $data["first_name"]." ".$data["last_name"];
+       $updated = $this->user->update($data);
+       if($updated){
+         $user = $this->user->find($id);
+         return response()->json(['success' => $user], 200);
+
+       }else{
+         return response()->json(['error' => "server error."], 500);
+       }
+       
     }
 
 
