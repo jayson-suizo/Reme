@@ -8,9 +8,11 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Requests\userRegistrationRequest;
+use App\Http\Requests\updateUserRegistrationRequest;
 use App\Http\Requests\verificationRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\UserInterface as UserInterface;
+
 use App\Mail\registration;
 use Mail;
 
@@ -99,6 +101,22 @@ class userController extends Controller
     {  
        $user = Auth::user();
         return response()->json(['success' => $user], 200);
+    }
+
+
+     /**
+     * update details api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(updateUserRegistrationRequest $request)
+    {  
+
+       $id = Auth::user()->id;
+       $data = Input::all();
+       print_r($data);
+       die; 
+       return response()->json(['success' => $user], 200);
     }
 
 
