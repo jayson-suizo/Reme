@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Requests\userRegistrationRequest;
 use App\Http\Requests\updateUserRegistrationRequest;
+use App\Http\Requests\updateUserEmailRequest;
 use App\Http\Requests\verificationRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\UserInterface as UserInterface;
@@ -126,7 +127,7 @@ class userController extends Controller
        $data["name"] = $data["first_name"]." ".$data["last_name"];
        $updated = $this->user->update($data);
        if($updated){
-        
+
          $user = $this->user->find($id);
          return response()->json(['success' => $user], 200);
 
@@ -136,6 +137,22 @@ class userController extends Controller
        }
        
     }
+
+     /**
+     * update email api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEmail(updateUserEmailRequest $request)
+    {  echo 1;
+        die;
+       $id = Auth::user()->id; 
+       $data = Input::all();
+       print_r($data);
+       
+    }
+
+
 
 
     /**
