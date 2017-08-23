@@ -12,11 +12,13 @@ use App\Http\Requests\updateUserRegistrationRequest;
 use App\Http\Requests\verifyUpdateEmailRequest;
 use App\Http\Requests\updateUserEmailRequest;
 use App\Http\Requests\verificationRequest;
+use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\UserInterface as UserInterface;
 
 use App\Mail\registration;
 use App\Mail\updateEmail;
+use App\Mail\changePassword;
 use Mail;
 
 class userController extends Controller
@@ -208,6 +210,47 @@ class userController extends Controller
          
        }
     }
+
+
+    /**
+     * update change password api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changePassword(changePasswordRequest $request)
+    {  
+       
+      $data = Input::all();
+      $data["password_verification_code"] = rand(1000,9999);
+
+      $user = $this->user->findByEmail($data['email']);
+
+      if(!$user){
+        
+        return response()->json(['error' => 'data not available.'], 500);
+      
+      }else{
+
+        $data['id'] = $user['id'];
+        unset($data['email']);
+        $updated = $this->user->update($data);
+
+        if($updated){
+           $user = $this->user->find($data['id']);
+           
+           Mail::to($user['email'])->send(new changePassword($user));
+           return response()->json(['success' => $user], 200);
+
+        }else{
+
+            return response()->json(['error' => 'server error.'], 500);
+        }
+
+      }
+
+
+    }
+
 
     /**
      * logout api
