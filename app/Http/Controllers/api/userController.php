@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Requests\userRegistrationRequest;
 use App\Http\Requests\updateUserRegistrationRequest;
+use App\Http\Requests\verifyUpdateEmailRequest;
 use App\Http\Requests\updateUserEmailRequest;
 use App\Http\Requests\verificationRequest;
 use Illuminate\Support\Facades\Input;
@@ -164,6 +165,48 @@ class userController extends Controller
        }
        
        
+    }
+
+    /**
+     * update email api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verifyUpdateEmail(verifyUpdateEmailRequest $request)
+    {  
+       $data = Input::all();
+       $user = $this->user->findByNewEmail($data["new_email"]);
+       
+       if(!$user){
+
+         return response()->json(['error' => 'data not available.'], 500);
+
+       }else{
+
+         if($user["email_verification_code"] != $data["email_verification_code"]){
+
+           return response()->json(['error' => 'verification code does not match.'], 500); 
+         }
+
+         $update_record['id'] = $user['id'];
+         $update_record['new_email'] = NULL;
+         $update_record['email_verification_code'] = NULL;
+         $update_record['email'] = $data['new_email'];
+
+         $updated = $this->user->update($update_record);
+
+         if(!$updated){
+
+            return response()->json(['error' => 'server error.'], 500); 
+         }
+
+         $user = $this->user->find($user['id']);
+
+         return response()->json(['success' => $user], 200);
+
+         
+         
+       }
     }
 
     /**

@@ -13,6 +13,8 @@ interface userInterface {
     public function delete($id);
 
     public function findByEmail($email);
+    
+    public function findByNewEmail($new_email);
 
     public function update($data);
 }

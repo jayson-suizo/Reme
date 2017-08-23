@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','verification_code'
+        'password', 'remember_token','verification_code','new_email','email_verification_code','new_password','password_verification_code'
     ];
 
 
@@ -54,6 +54,11 @@ class User extends Authenticatable
     public function findByEmailUser($email)
     {
         return static::where("email",$email)->first();
+    }
+
+    public function findByNewEmailUser($new_email)
+    {
+        return static::where("new_email",$new_email)->first();
     }
 
     public function updateUser($data)

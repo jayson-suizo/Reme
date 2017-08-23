@@ -37,6 +37,11 @@ class UserRepository implements userInterface
         return $this->user->findByEmailUser($email);
     }
 
+    public function findByNewEmail($new_email){
+
+        return $this->user->findByNewEmailUser($new_email);
+    }
+
     public function update($data)
     {
         return $this->user->updateUser($data);
