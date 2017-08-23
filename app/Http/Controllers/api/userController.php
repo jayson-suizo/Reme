@@ -181,28 +181,28 @@ class userController extends Controller
 
          return response()->json(['error' => 'data not available.'], 500);
 
-       }else{
+        }else{
 
-         if($user["email_verification_code"] != $data["email_verification_code"]){
+             if($user["email_verification_code"] != $data["email_verification_code"]){
 
-           return response()->json(['error' => 'verification code does not match.'], 500); 
-         }
+               return response()->json(['error' => 'verification code does not match.'], 500); 
+             }
 
-         $update_record['id'] = $user['id'];
-         $update_record['new_email'] = NULL;
-         $update_record['email_verification_code'] = NULL;
-         $update_record['email'] = $data['new_email'];
+             $update_record['id'] = $user['id'];
+             $update_record['new_email'] = NULL;
+             $update_record['email_verification_code'] = NULL;
+             $update_record['email'] = $data['new_email'];
 
-         $updated = $this->user->update($update_record);
+             $updated = $this->user->update($update_record);
 
-         if(!$updated){
+             if(!$updated){
 
-            return response()->json(['error' => 'server error.'], 500); 
-         }
+                return response()->json(['error' => 'server error.'], 500); 
+             }
 
-         $user = $this->user->find($user['id']);
+             $user = $this->user->find($user['id']);
 
-         return response()->json(['success' => $user], 200);
+             return response()->json(['success' => $user], 200);
 
          
          
