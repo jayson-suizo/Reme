@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Input;
 use App\Repositories\User\UserInterface as UserInterface;
 
 use App\Mail\registration;
+use App\Mail\updateEmail;
 use Mail;
 
 class userController extends Controller
@@ -144,16 +145,26 @@ class userController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function updateEmail(updateUserEmailRequest $request)
-    {  echo 1;
-        die;
+    {  
        $id = Auth::user()->id; 
        $data = Input::all();
-       print_r($data);
+       $data["email_verification_code"] = rand(1000,9999);
+       $data["id"] = $id;
+       $updated = $this->user->update($data);
+
+       if($updated){
+
+         $user = $this->user->find($id);
+         Mail::to($data["new_email"])->send(new updateEmail($user));
+         return response()->json(['success' => $user], 200);
+
+       }else{
+
+         return response()->json(['error' => "server error."], 500);
+       }
+       
        
     }
-
-
-
 
     /**
      * logout api
