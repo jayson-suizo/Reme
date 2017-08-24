@@ -13,6 +13,7 @@ use App\Http\Requests\verifyUpdateEmailRequest;
 use App\Http\Requests\updateUserEmailRequest;
 use App\Http\Requests\verificationRequest;
 use App\Http\Requests\changePasswordRequest;
+use App\Http\Requests\confirmChangePasswordRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\UserInterface as UserInterface;
 
@@ -237,7 +238,7 @@ class userController extends Controller
 
         if($updated){
            $user = $this->user->find($data['id']);
-           
+
            Mail::to($user['email'])->send(new changePassword($user));
            return response()->json(['success' => $user], 200);
 
@@ -250,6 +251,45 @@ class userController extends Controller
 
 
     }
+
+     /**
+     * update change password api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function confirmChangePassword(confirmChangePasswordRequest $request)
+    {  
+       $data = Input::all();
+
+       $user = $this->user->findByEmail($data["email"]);
+
+       if(!$user){
+
+         return response()->json(['error' => 'data not available.'], 500);
+       
+       }else{
+         
+         if($data['password_verification_code'] != $user['password_verification_code']){
+
+            return response()->json(['error' => 'verification code does not match.'], 500);
+        
+         }else{
+            $data['password'] = bcrypt($user["new_password"]);
+            $data['id'] = $user['id'];
+            $data['new_password'] = NULL;
+            $data['password_verification_code'] = NULL;
+            $updated = $this->user->update($data);
+            return response()->json(['success' => $user], 200);
+         }
+       }
+
+
+
+
+    }
+
+
+
 
 
     /**

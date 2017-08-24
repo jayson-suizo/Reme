@@ -25,5 +25,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 });
 Route::post('login', 'api\userController@login');
 Route::post('change/password', 'api\userController@changePassword');
+Route::post('confirm/change/password', 'api\userController@confirmChangePassword');
+
 Route::post('register', 'api\userController@register');
 Route::post('verify', 'api\userController@verify');
