@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserInterface as UserInterface;
 use App\Http\Requests\manageUserRequest;
+use Illuminate\Support\Facades\Input;
 
 class manageUserController extends Controller
 {   
@@ -33,7 +34,17 @@ class manageUserController extends Controller
      */
     public function store(manageUserRequest $request)
     {
-        
+        $data = Input::all();
+        $data["name"] = $data["first_name"] .' '.$data["last_name"];
+        $data["password"] = bcrypt($data["password"]);
+
+        $user = $this->user->insert($data);
+
+        if($user){
+            return response()->json(['success'=> $user ], 200);
+        }else{
+            return response()->json(['error'=>'Server error'], 500);
+        }
     }
 
     /**
@@ -63,7 +74,30 @@ class manageUserController extends Controller
      */
     public function update(manageUserRequest $request, $id)
     {
-        
+        $user = $this->user->find($id);
+        $data = Input::all();
+        $data['id'] = $id;
+        $data["name"] = $data["first_name"] .' '.$data["last_name"];
+
+        if($user){
+
+            if($data["email"] == $user["email"]){
+                unset($data["email"]);
+            }
+            $update = $this->user->update($data);
+
+            if(!$update){
+               return response()->json(['error'=>'Server error'],500); 
+            }else{
+                $user = $this->user->find($id);
+                return response()->json(['success'=>$user],500);
+            }
+
+
+
+        }else{
+            return response()->json(['error'=>'User not found'], 401);
+        }
     }
 
     /**
