@@ -90,7 +90,7 @@ class manageUserController extends Controller
                return response()->json(['error'=>'Server error'],500); 
             }else{
                 $user = $this->user->find($id);
-                return response()->json(['success'=>$user],500);
+                return response()->json(['success'=>$user],200);
             }
 
 
@@ -108,6 +108,18 @@ class manageUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = $this->user->find($id);
+
+        if($user){
+            $deleted = $this->user->delete($id);
+
+            if($deleted){
+                return response()->json(['success'=>'successfully deleted user.'],200);
+            }else{
+                return response()->json(['error'=>'Server error'],500);
+            }
+        }else{
+            return response()->json(['error'=>'User not found'], 401);
+        }
     }
 }
