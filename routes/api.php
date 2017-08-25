@@ -29,3 +29,5 @@ Route::post('confirm/change/password', 'api\userController@confirmChangePassword
 
 Route::post('register', 'api\userController@register');
 Route::post('verify', 'api\userController@verify');
+
+Route::resource('manage/users','api\manageUserController',['except' => ['create','edit']]);
