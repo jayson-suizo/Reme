@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\User\UserInterface as UserInterface;
 use App\Http\Requests\manageUserRequest;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class manageUserController extends Controller
 {   
@@ -56,6 +57,7 @@ class manageUserController extends Controller
     public function show($id)
     {   
         $user = $this->user->find($id);
+        $user['age'] = $user->age;
 
         if($user){
             return response()->json(['success'=>$user], 200);
