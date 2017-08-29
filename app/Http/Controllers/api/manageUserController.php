@@ -23,15 +23,23 @@ class manageUserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $search = [];
         $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-        $search = isset($_GET['search']) ? $_GET['search'] : [];
+        
+        if(isset($_GET['name'])){
+            $search['name'] = $_GET['name'];
+        }
 
         $data = $this->user->getAll($offset, $limit, $search);
         $data['offset'] = $offset;
         $data['limit'] = $limit;
         $data['total'] = 0;
+
+
+
+        $data['total'] = $this->user->count();
 
         return response()->json(['success'=> $data ], 200);
 

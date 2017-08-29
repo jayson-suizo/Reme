@@ -36,11 +36,15 @@ class User extends Authenticatable
         return Carbon::parse($this->attributes['birth_date'])->age;
     }
 
-    public function getAll($offset = 0, $limit = 10, $seach = [])
+    public function getAll($offset = 0, $limit = 10, $search = [])
     {   
 
         $user =  new static;
-        
+
+        if(isset($search['name'])){
+            $user = $user->where('name','like', '%'.$search['name'].'%');
+        }
+
         $user = $user->offset($offset)->limit($limit);
         return $user->get();
     }
@@ -73,5 +77,9 @@ class User extends Authenticatable
     public function updateUser($data)
     {
         return static::find($data['id'])->update($data);
+    }
+
+    public function countUser(){
+        return static::count();
     }
 }

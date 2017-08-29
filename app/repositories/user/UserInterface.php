@@ -17,4 +17,6 @@ interface userInterface {
     public function findByNewEmail($new_email);
 
     public function update($data);
+
+    public function count();
 }

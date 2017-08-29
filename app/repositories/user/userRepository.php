@@ -46,4 +46,8 @@ class UserRepository implements userInterface
     {
         return $this->user->updateUser($data);
     }
+
+    public function count(){
+        return $this->user->countUser();
+    }
 }
