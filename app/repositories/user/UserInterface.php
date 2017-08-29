@@ -4,7 +4,7 @@ namespace App\Repositories\User;
 
 interface userInterface {
 
-    public function getAll();
+    public function getAll($offset, $limit, $search);
 
     public function find($id);
 

@@ -12,9 +12,9 @@ class UserRepository implements userInterface
 	$this->user = $user;
     }
 
-    public function getAll()
+    public function getAll($offset, $limit, $search)
     {
-        return $this->user->getAll();
+        return $this->user->getAll($offset, $limit, $search);
     }
 
     public function find($id)

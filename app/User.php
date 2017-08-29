@@ -36,9 +36,13 @@ class User extends Authenticatable
         return Carbon::parse($this->attributes['birth_date'])->age;
     }
 
-    public function getAll()
-    {
-        return static::all();
+    public function getAll($offset = 0, $limit = 10, $seach = [])
+    {   
+
+        $user =  new static;
+        
+        $user = $user->offset($offset)->limit($limit);
+        return $user->get();
     }
 
     public function findUser($id)

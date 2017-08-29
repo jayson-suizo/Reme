@@ -24,7 +24,17 @@ class manageUserController extends Controller
      */
     public function index()
     {
-        //
+        $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+        $search = isset($_GET['search']) ? $_GET['search'] : [];
+
+        $data = $this->user->getAll($offset, $limit, $search);
+        $data['offset'] = $offset;
+        $data['limit'] = $limit;
+        $data['total'] = 0;
+
+        return response()->json(['success'=> $data ], 200);
+
     }
 
     /**
