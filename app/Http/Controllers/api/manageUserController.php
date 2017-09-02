@@ -36,9 +36,7 @@ class manageUserController extends Controller
         $data['offset'] = $offset;
         $data['limit'] = $limit;
         $data['total'] = 0;
-
-
-
+        
         $data['total'] = $this->user->count();
 
         return response()->json(['success'=> $data ], 200);
