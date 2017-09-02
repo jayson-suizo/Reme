@@ -38,6 +38,6 @@ class activityRepository implements activityInterface
     }
 
     public function count(){
-        return $this->user->countActivity();
+        return $this->activity->countActivity();
     }
 }

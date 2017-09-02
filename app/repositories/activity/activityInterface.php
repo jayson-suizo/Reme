@@ -4,7 +4,7 @@ namespace App\Repositories\Activity;
 
 interface activityInterface {
 
-    // public function getAll($offset, $limit, $search);
+    public function getAll($offset, $limit, $search);
 
     public function find($id);
 

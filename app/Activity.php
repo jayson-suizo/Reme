@@ -19,22 +19,22 @@ class Activity extends Model
 
 
 
-    //  public function getAll($offset = 0, $limit = 10, $search = [])
-    // {   
+     public function getAll($offset = 0, $limit = 10, $search = [])
+    {   
 
-    //     $ac =  new static;
+        $activity =  new static;
 
-    //     if(isset($search["all"])){
-    //         return $user->get();
-    //     }else{
-    //          if(isset($search['name'])){
-    //             $user = $user->where('name','like', '%'.$search['name'].'%');
-    //         }
+        if(isset($search["all"])){
+            return $activity->get();
+        }else{
+             if(isset($search['name'])){
+                $activity = $activity->where('name','like', '%'.$search['name'].'%');
+            }
 
-    //         $user = $user->offset($offset)->limit($limit);
-    //         return $user->get();
-    //     }
-    // }
+            $activity = $activity->offset($offset)->limit($limit);
+            return $activity->get();
+        }
+    }
 
     public function findActivity($id)
     {	

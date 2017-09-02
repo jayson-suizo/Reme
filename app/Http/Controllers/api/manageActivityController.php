@@ -21,7 +21,26 @@ class manageActivityController extends Controller
      */
     public function index()
     {
-        //
+        $search = [];
+        $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+
+        if(isset($_GET['all'])){
+            $search['all'] = true;
+        }
+        
+        // if(isset($_GET['name'])){
+        //     $search['name'] = $_GET['name'];
+        // }
+
+        $data = $this->activity->getAll($offset, $limit, $search);
+        $data['offset'] = isset($_GET['all']) ? 'all' :$offset;
+        $data['limit'] = isset($_GET['all']) ? 'all' : $limit;
+        $data['total'] = 0;
+        
+        $data['total'] = $this->activity->count();
+
+        return response()->json(['success'=> $data ], 200);
     }
 
     /**
@@ -121,6 +140,18 @@ class manageActivityController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $activity = $this->activity->find($id);
+
+        if($activity){
+            $deleted = $this->activity->delete($id);
+
+            if($deleted){
+                return response()->json(['success'=>'successfully deleted user.'],200);
+            }else{
+                return response()->json(['error'=>'Server error'],500);
+            }
+        }else{
+            return response()->json(['error'=>'Activity not found'], 401);
+        }
     }
 }
