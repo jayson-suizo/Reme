@@ -3,7 +3,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class userRepoServiceProvide extends ServiceProvider
+class userRepoServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -23,5 +23,7 @@ class userRepoServiceProvide extends ServiceProvider
     public function register()
     {
         $this->app->bind('App\Repositories\User\userInterface', 'App\Repositories\User\userRepository');
+
+
     }
 }
