@@ -41,12 +41,18 @@ class User extends Authenticatable
 
         $user =  new static;
 
-        if(isset($search['name'])){
-            $user = $user->where('name','like', '%'.$search['name'].'%');
+        if(isset($search["all"])){
+            return $user->get();
+        }else{
+             if(isset($search['name'])){
+                $user = $user->where('name','like', '%'.$search['name'].'%');
+            }
+
+            $user = $user->offset($offset)->limit($limit);
+            return $user->get();
         }
 
-        $user = $user->offset($offset)->limit($limit);
-        return $user->get();
+       
     }
 
     public function findUser($id)
