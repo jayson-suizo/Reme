@@ -26,6 +26,9 @@ class userRepoServiceProvider extends ServiceProvider
         
         $this->app->bind('App\Repositories\Activity\activityInterface', 'App\Repositories\Activity\activityRepository');
 
+        $this->app->bind('App\Repositories\Language\languageInterface', 'App\Repositories\Language\languageRepository');
+
+        $this->app->bind('App\Repositories\userLanguage\userLanguageInterface', 'App\Repositories\userLanguage\userLanguageRepository');
 
     }
 }
