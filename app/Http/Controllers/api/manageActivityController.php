@@ -51,7 +51,13 @@ class manageActivityController extends Controller
      */
     public function show($id)
     {
+        $activity = $this->activity->find($id);
 
+        if($activity){
+            return response()->json(['success'=>$activity], 200);
+        }else{
+            return response()->json(['error'=>'Activity not found'], 401);
+        }
     }
 
     /**

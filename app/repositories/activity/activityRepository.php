@@ -9,7 +9,7 @@ class activityRepository implements activityInterface
     public $activity;
 
     function __construct(Activity $activity) {
-	$this->user = $activity;
+	$this->activity = $activity;
     }
 
     // public function getAll($offset, $limit, $search)
@@ -17,10 +17,10 @@ class activityRepository implements activityInterface
     //     return $this->user->getAll($offset, $limit, $search);
     // }
 
-    // public function find($id)
-    // {
-    //     return $this->user->findUser($id);
-    // }
+    public function find($id)
+    {
+        return $this->activity->findActivity($id);
+    }
 
     // public function insert($data)
     // {
