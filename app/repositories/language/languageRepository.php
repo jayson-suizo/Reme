@@ -12,32 +12,32 @@ class languageRepository implements languageInterface
 	   $this->language = $language;
     }
 
-    // public function getAll($offset, $limit, $search)
-    // {
-    //     return $this->activity->getAll($offset, $limit, $search);
-    // }
+    public function getAll($offset, $limit, $search)
+    {
+        return $this->language->getAll($offset, $limit, $search);
+    }
 
     public function find($id)
     {
         return $this->language->findLanguage($id);
     }
 
-    // public function insert($data)
-    // {
-    //     return $this->activity->insertActivity($data);
-    // }
+    public function insert($data)
+    {
+        return $this->language->insertLanguage($data);
+    }
 
-    // public function delete($id)
-    // {
-    //     return $this->activity->deleteActivity($id);
-    // }
+    public function delete($id)
+    {
+        return $this->language->deleteLanguage($id);
+    }
 
-    // public function update($data)
-    // {
-    //     return $this->activity->updateActivity($data);
-    // }
+    public function update($data)
+    {
+        return $this->language->updateLanguage($data);
+    }
 
-    // public function count(){
-    //     return $this->activity->countActivity();
-    // }
+    public function count(){
+        return $this->language->countLanguage();
+    }
 }
