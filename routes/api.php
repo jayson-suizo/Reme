@@ -31,3 +31,4 @@ Route::post('register', 'api\userController@register');
 Route::post('verify', 'api\userController@verify');
 
 Route::resource('manage/users','api\manageUserController',['except' => ['create','edit']]);
+Route::resource('manage/activities','api\manageActivityController',['except' => ['create','edit']]);

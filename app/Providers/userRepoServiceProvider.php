@@ -23,6 +23,8 @@ class userRepoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('App\Repositories\User\userInterface', 'App\Repositories\User\userRepository');
+        
+        $this->app->bind('App\Repositories\Activity\activityInterface', 'App\Repositories\Activity\activityRepository');
 
 
     }

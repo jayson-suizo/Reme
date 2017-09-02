@@ -4,9 +4,14 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Activity\activityInterface as activityInterface;
 
 class manageActivityController extends Controller
-{
+{   
+
+    public function __construct(activityInterface $activity){
+        $this->activity = $activity;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +51,7 @@ class manageActivityController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
