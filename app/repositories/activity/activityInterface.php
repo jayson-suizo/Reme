@@ -8,15 +8,11 @@ interface activityInterface {
 
     public function find($id);
 
-    // public function insert($data);
+    public function insert($data);
 
-    // public function delete($id);
+    public function delete($id);
 
-    // public function findByEmail($email);
-    
-    // public function findByNewEmail($new_email);
+    public function update($data);
 
-    // public function update($data);
-
-    // public function count();
+    public function count();
 }

@@ -8,18 +8,32 @@ class Activity extends Model
 {
     protected $table = 'user_activities';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'intervention_type','session_date','rate_before','rate_after','comment','professional_comment'
+    ];
+
+
 
     //  public function getAll($offset = 0, $limit = 10, $search = [])
     // {   
 
-    //     $user =  new static;
+    //     $ac =  new static;
 
-    //     if(isset($search['name'])){
-    //         $user = $user->where('name','like', '%'.$search['name'].'%');
+    //     if(isset($search["all"])){
+    //         return $user->get();
+    //     }else{
+    //          if(isset($search['name'])){
+    //             $user = $user->where('name','like', '%'.$search['name'].'%');
+    //         }
+
+    //         $user = $user->offset($offset)->limit($limit);
+    //         return $user->get();
     //     }
-
-    //     $user = $user->offset($offset)->limit($limit);
-    //     return $user->get();
     // }
 
     public function findActivity($id)
@@ -27,34 +41,25 @@ class Activity extends Model
         return static::find($id);
     }
 
-    //  public function InsertUser($data)
-    // {
-    //     return static::create($data);
-    // }
+     public function InsertActivity($data)
+    {
+        return static::create($data);
+    }
 
-    // public function deleteUser($id)
-    // {
-    //     return static::find($id)->delete();
-    // }
+    public function deleteActivity($id)
+    {
+        return static::find($id)->delete();
+    }
 
-    // public function findByEmailUser($email)
-    // {
-    //     return static::where("email",$email)->first();
-    // }
+   
+    public function updateActivity($data)
+    {
+        return static::find($data['id'])->update($data);
+    }
 
-    // public function findByNewEmailUser($new_email)
-    // {
-    //     return static::where("new_email",$new_email)->first();
-    // }
-
-    // public function updateUser($data)
-    // {
-    //     return static::find($data['id'])->update($data);
-    // }
-
-    // public function countUser(){
-    //     return static::count();
-    // }
+    public function countActivity(){
+        return static::count();
+    }
 
     
 }
