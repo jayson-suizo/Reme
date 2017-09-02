@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\userLanguage\userLanguageInterface as userLanguageInterface;
+use App\Http\Requests\manageUserLanguageRequest;
 
 class manageUserLanguageController extends Controller
 {   
@@ -21,7 +22,27 @@ class manageUserLanguageController extends Controller
      */
     public function index()
     {
-        //
+        $search = [];
+        $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+
+        if(isset($_GET['all'])){
+            $search['all'] = true;
+        }
+
+        
+        if(isset($_GET['user_id'])){
+            $search['user_id'] = $_GET['user_id'];
+        }
+
+        $data = $this->user_language->getAll($offset, $limit, $search);
+        $data['offset'] = isset($_GET['all']) ? 'all' :$offset;
+        $data['limit'] = isset($_GET['all']) ? 'all' : $limit;
+        $data['total'] = 0;
+        
+        $data['total'] = $this->user_language->count();
+
+        return response()->json(['success'=> $data ], 200);
     }
 
     /**
@@ -40,9 +61,19 @@ class manageUserLanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(manageUserLanguageRequest $request)
     {
-       
+       $data = Input::all();
+
+        $user_language = $this->user_language->insert($data);
+
+        if($user_language){
+            return response()->json(['success'=> $user_language ], 200);
+        }else{
+            return response()->json(['error'=>'Server error'], 500);
+        }
+
+
     }
 
     /**
@@ -81,9 +112,29 @@ class manageUserLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(manageUserLanguageRequest $request, $id)
     {
-        //
+        $data = Input::all();
+        $user_language = $this->user_language->find($id);
+        $data['id'] = $id;
+
+        if($user_language){
+
+            $update = $this->user_language->update($data);
+
+            if(!$update){
+               return response()->json(['error'=>'Server error'],500); 
+            }else{
+                $user_language = $this->user_language->find($id);
+                return response()->json(['success'=>$user_language],200);
+            }
+
+
+
+        }else{
+            return response()->json(['error'=>'Activity not found'], 401);
+        }
+
     }
 
     /**
@@ -94,6 +145,18 @@ class manageUserLanguageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user_language = $this->user_language->find($id);
+
+        if($user_language){
+            $deleted = $this->user_language->delete($id);
+
+            if($deleted){
+                return response()->json(['success'=>'successfully deleted user.'],200);
+            }else{
+                return response()->json(['error'=>'Server error'],500);
+            }
+        }else{
+            return response()->json(['error'=>'Activity not found'], 401);
+        }
     }
 }

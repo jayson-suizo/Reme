@@ -12,34 +12,34 @@ class userLanguageRepository implements userLanguageInterface
 	   $this->user_language = $user_language;
     }
 
-    // public function getAll($offset, $limit, $search)
-    // {
-    //     return $this->activity->getAll($offset, $limit, $search);
-    // }
+    public function getAll($offset, $limit, $search)
+    {
+        return $this->user_language->getAll($offset, $limit, $search);
+    }
 
     public function find($id)
     {
         return $this->user_language->findUserLanguage($id);
     }
 
-    // public function insert($data)
-    // {
-    //     return $this->activity->insertActivity($data);
-    // }
+    public function insert($data)
+    {
+        return $this->user_language->insertUserLanguage($data);
+    }
 
-    // public function delete($id)
-    // {
-    //     return $this->activity->deleteActivity($id);
-    // }
+    public function delete($id)
+    {
+        return $this->user_language->deleteUserLanguage($id);
+    }
 
-    // public function update($data)
-    // {
-    //     return $this->activity->updateActivity($data);
-    // }
+    public function update($data)
+    {
+        return $this->user_language->updateUserLanguage($data);
+    }
 
-    // public function count(){
-    //     return $this->activity->countActivity();
-    // }
+    public function count(){
+        return $this->user_language->countUserLanguage();
+    }
 
 
    

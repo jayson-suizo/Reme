@@ -19,45 +19,45 @@ class UserLanguage extends Model
 
 
 
-     // public function getAll($offset = 0, $limit = 10, $search = [])
-    // {   
+     public function getAll($offset = 0, $limit = 10, $search = [])
+    {   
 
-    //     $activity =  new static;
+        $user_language =  new static;
 
-    //     if(isset($search["all"])){
-    //         return $activity->get();
-    //     }else{
-    //          if(isset($search['name'])){
-    //             $activity = $activity->where('name','like', '%'.$search['name'].'%');
-    //         }
+        if(isset($search["all"])){
+            return $user_language->get();
+        }else{
+             if(isset($search['user_id'])){
+                $user_language = $user_language->where('user_id',$search['user_id']);
+            }
 
-    //         $activity = $activity->offset($offset)->limit($limit);
-    //         return $activity->get();
-    //     }
-    // }
+            $user_language = $user_language->offset($offset)->limit($limit);
+            return $user_language->get();
+        }
+    }
 
     public function findUserLanguage($id)
     {	
         return static::find($id);
     }
 
-    //  public function InsertActivity($data)
-    // {
-    //     return static::create($data);
-    // }
+     public function InsertUserLanguage($data)
+    {
+        return static::create($data);
+    }
 
-    // public function deleteActivity($id)
-    // {
-    //     return static::find($id)->delete();
-    // }
+    public function deleteUserLanguage($id)
+    {
+        return static::find($id)->delete();
+    }
 
    
-    // public function updateActivity($data)
-    // {
-    //     return static::find($data['id'])->update($data);
-    // }
+    public function updateUserLanguage($data)
+    {
+        return static::find($data['id'])->update($data);
+    }
 
-    // public function countActivity(){
-    //     return static::count();
-    // }
+    public function countUserLanguage(){
+        return static::count();
+    }
 }
