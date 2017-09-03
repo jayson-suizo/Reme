@@ -30,5 +30,7 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\userLanguage\userLanguageInterface', 'App\Repositories\userLanguage\userLanguageRepository');
 
+        $this->app->bind('App\Repositories\Subscription\subscriptionInterface', 'App\Repositories\Subscription\subscriptionRepository');
+
     }
 }
