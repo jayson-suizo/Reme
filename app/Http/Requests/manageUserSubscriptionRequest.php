@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class manageSubscriptionRequest extends FormRequest
+class manageUserSubscriptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +26,15 @@ class manageSubscriptionRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':{
                 return [
-                    'name' => 'required',
-                    'period' => 'required|date:Y-m-d',
+                    'user_id' => 'required',
+                    'subscription_id' => 'required',
                 ];
             }
             break;
             case 'PUT':{
                 return [
-                   'name' => 'required',
-                   'period' => 'required|date:Y-m-d',
+                   'user_id' => 'required',
+                   'subscription_id' => 'required',
                 ];
 
             }
