@@ -34,5 +34,7 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\UserSubscription\userSubscriptionInterface', 'App\Repositories\UserSubscription\userSubscriptionRepository');
 
+        $this->app->bind('App\Repositories\Profession\professionInterface', 'App\Repositories\Profession\professionRepository');
+
     }
 }

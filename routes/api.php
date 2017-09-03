@@ -38,3 +38,5 @@ Route::resource('manage/languages','api\manageLanguageController',['except' => [
 Route::resource('manage/user/subscriptions','api\manageUserSubscriptionController',['except' => ['create','edit']]);
 
 Route::resource('manage/subscriptions','api\manageSubscriptionController',['except' => ['create','edit']]);
+
+Route::resource('manage/professions','api\manageProfessionController',['except' => ['create','edit']]);
