@@ -38,5 +38,7 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\Group\groupInterface', 'App\Repositories\Group\groupRepository');
 
+        $this->app->bind('App\Repositories\Question\questionInterface', 'App\Repositories\Question\questionRepository');
+
     }
 }
