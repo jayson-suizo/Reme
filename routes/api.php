@@ -42,3 +42,6 @@ Route::resource('manage/subscriptions','api\manageSubscriptionController',['exce
 Route::resource('manage/professions','api\manageProfessionController',['except' => ['create','edit']]);
 
 Route::resource('manage/questions','api\manageQuestionController',['except' => ['create','edit']]);
+
+Route::resource('manage/answers','api\manageAnswerController',['except' => ['create','edit']]);
+
