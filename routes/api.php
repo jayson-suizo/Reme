@@ -45,3 +45,5 @@ Route::resource('manage/questions','api\manageQuestionController',['except' => [
 
 Route::resource('manage/answers','api\manageAnswerController',['except' => ['create','edit']]);
 
+Route::resource('manage/user/type','api\manageUserTypeController',['except' => ['create','edit']]);
+

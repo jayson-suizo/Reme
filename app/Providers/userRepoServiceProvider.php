@@ -42,5 +42,8 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\Answer\answerInterface', 'App\Repositories\Answer\answerRepository');
 
+        $this->app->bind('App\Repositories\UserType\userTypeInterface', 'App\Repositories\UserType\userTypeRepository');
+
+
     }
 }
