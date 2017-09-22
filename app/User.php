@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','first_name','last_name','user_type','gender',
-        'age','profession_type','group_type','role','verification_code'
+        'birth_date','profession_type','group_type','role','verification_code','new_email',
+        'email_verification_code','new_password','password_verification_code',
     ];
 
     /**
@@ -26,13 +28,31 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','verification_code'
+        'password', 'remember_token','verification_code','new_email','email_verification_code','new_password','password_verification_code'
     ];
 
-
-    public function getAll()
+    public function getAgeAttribute()
     {
-        return static::all();
+        return Carbon::parse($this->attributes['birth_date'])->age;
+    }
+
+    public function getAll($offset = 0, $limit = 10, $search = [])
+    {   
+
+        $user =  new static;
+
+        if(isset($search["all"])){
+            return $user->get();
+        }else{
+             if(isset($search['name'])){
+                $user = $user->where('name','like', '%'.$search['name'].'%');
+            }
+
+            $user = $user->offset($offset)->limit($limit);
+            return $user->get();
+        }
+
+       
     }
 
     public function findUser($id)
@@ -55,8 +75,17 @@ class User extends Authenticatable
         return static::where("email",$email)->first();
     }
 
+    public function findByNewEmailUser($new_email)
+    {
+        return static::where("new_email",$new_email)->first();
+    }
+
     public function updateUser($data)
     {
         return static::find($data['id'])->update($data);
+    }
+
+    public function countUser(){
+        return static::count();
     }
 }

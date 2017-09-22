@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\Group;
 
-interface userInterface {
+interface groupInterface {
 
     public function getAll($offset, $limit, $search);
 
@@ -11,10 +11,6 @@ interface userInterface {
     public function insert($data);
 
     public function delete($id);
-
-    public function findByEmail($email);
-    
-    public function findByNewEmail($new_email);
 
     public function update($data);
 

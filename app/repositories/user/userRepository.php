@@ -12,9 +12,9 @@ class UserRepository implements userInterface
 	$this->user = $user;
     }
 
-    public function getAll()
+    public function getAll($offset, $limit, $search)
     {
-        return $this->user->getAll();
+        return $this->user->getAll($offset, $limit, $search);
     }
 
     public function find($id)
@@ -37,8 +37,17 @@ class UserRepository implements userInterface
         return $this->user->findByEmailUser($email);
     }
 
+    public function findByNewEmail($new_email){
+
+        return $this->user->findByNewEmailUser($new_email);
+    }
+
     public function update($data)
     {
         return $this->user->updateUser($data);
+    }
+
+    public function count(){
+        return $this->user->countUser();
     }
 }

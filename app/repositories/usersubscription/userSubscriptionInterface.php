@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\UserSubscription;
 
-interface userInterface {
+interface userSubscriptionInterface {
 
     public function getAll($offset, $limit, $search);
 
@@ -12,11 +12,9 @@ interface userInterface {
 
     public function delete($id);
 
-    public function findByEmail($email);
-    
-    public function findByNewEmail($new_email);
-
     public function update($data);
 
     public function count();
+
+    
 }
