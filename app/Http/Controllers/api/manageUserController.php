@@ -77,9 +77,9 @@ class manageUserController extends Controller
     public function show($id)
     {   
         $user = $this->user->find($id);
-        $user['age'] = $user->age;
 
         if($user){
+            $user['age'] = $user->age;
             return response()->json(['success'=>$user], 200);
         }else{
             return response()->json(['error'=>'User not found'], 401);
