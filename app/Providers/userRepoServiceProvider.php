@@ -44,6 +44,8 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\UserType\userTypeInterface', 'App\Repositories\UserType\userTypeRepository');
 
+        $this->app->bind('App\Repositories\Intervention\interventionInterface', 'App\Repositories\Intervention\interventionRepository');
+
 
     }
 }
