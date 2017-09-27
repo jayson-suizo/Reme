@@ -49,3 +49,5 @@ Route::resource('manage/user/type','api\manageUserTypeController',['except' => [
 
 Route::resource('manage/interventions','api\manageInterventionController',['except' => ['create','edit']]);
 
+Route::resource('manage/music','api\manageMusicController',['except' => ['create','edit']]);
+
