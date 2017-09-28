@@ -36,7 +36,14 @@ class userSubscription extends Model
             return $user_subscription->get();
         }else{
             if(isset($search['user_id'])){
-                $user_subscription = $user_subscription->with('user')->with('subscription')->where('user_id',$search['user_id']);
+                
+                $user_subscription = $user_subscription->where('user_id',$search['user_id']);
+            }
+            if(isset($search['subscription'])){
+                $subscription = $search["subscription"];
+                $user_subscription = $user_subscription->whereHas('subscription',function ($q) use ($subscription){
+                       $q->where('name', $subscription);
+                });
             }
 
             $user_subscription = $user_subscription->with('user')->with('subscription')->offset($offset)->limit($limit);

@@ -33,6 +33,10 @@ class managePurchasesController extends Controller
             $search['user_id'] = $_GET['user_id'];
         }
 
+         if(isset($_GET['subscription'])){
+            $search['subscription'] = $_GET['subscription'];
+        }
+
         $data = $this->user_subscription->getAll($offset, $limit, $search);
         $data['offset'] = isset($_GET['all']) ? 'all' :$offset;
         $data['limit'] = isset($_GET['all']) ? 'all' : $limit;
