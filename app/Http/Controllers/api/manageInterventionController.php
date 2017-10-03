@@ -4,16 +4,17 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\subscription\userubscriptionInterface as subscriptionInterface;
+use App\Repositories\Intervention\interventionInterface as interventionInterface;
+use App\Http\Requests\manageInterventionRequest;
 use Illuminate\Support\Facades\Input;
-use App\Http\Requests\manageSubscriptionRequest;
 
-class manageSubscriptionController extends Controller
+
+class manageInterventionController extends Controller
 {   
-
-    public function __construct(subscriptionInterface $subscription){
-        $this->subscription = $subscription;
+    public function __construct(interventionInterface $intervention){
+        $this->intervention = $intervention;
     }
+
 
     /**
      * Display a listing of the resource.
@@ -29,13 +30,17 @@ class manageSubscriptionController extends Controller
         if(isset($_GET['all'])){
             $search['all'] = true;
         }
+        
+        // if(isset($_GET['name'])){
+        //     $search['name'] = $_GET['name'];
+        // }
 
-        $data = $this->subscription->getAll($offset, $limit, $search);
+        $data = $this->intervention->getAll($offset, $limit, $search);
         $data['offset'] = isset($_GET['all']) ? 'all' :$offset;
         $data['limit'] = isset($_GET['all']) ? 'all' : $limit;
         $data['total'] = 0;
         
-        $data['total'] = $this->subscription->count();
+        $data['total'] = $this->intervention->count();
 
         return response()->json(['success'=> $data ], 200);
     }
@@ -56,14 +61,14 @@ class manageSubscriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(manageSubscriptionRequest $request)
+    public function store(manageInterventionRequest $request)
     {
-         $data = Input::all();
+        $data = Input::all();
 
-         $subscription = $this->subscription->insert($data);
+         $intervention = $this->intervention->insert($data);
 
-        if($subscription){
-            return response()->json(['success'=> $subscription ], 200);
+        if($intervention){
+            return response()->json(['success'=> $intervention ], 200);
         }else{
             return response()->json(['error'=>'Server error'], 500);
         }
@@ -77,12 +82,12 @@ class manageSubscriptionController extends Controller
      */
     public function show($id)
     {
-        $subscription = $this->subscription->find($id);
+         $intervention = $this->intervention->find($id);
 
-         if($subscription){
-            return response()->json(['success'=>$subscription], 200);
+        if($intervention){
+            return response()->json(['success'=>$intervention], 200);
         }else{
-            return response()->json(['error'=>'subscription not found'], 401);
+            return response()->json(['error'=>'Intervention not found'], 401);
         }
     }
 
@@ -104,25 +109,27 @@ class manageSubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(manageSubscriptionRequest $request, $id)
+    public function update(manageInterventionRequest $request, $id)
     {
         $data = Input::all();
-        $subscription = $this->subscription->find($id);
+        $intervention = $this->intervention->find($id);
         $data['id'] = $id;
 
-        if($subscription){
+        if($intervention){
 
-            $update = $this->subscription->update($data);
+            $update = $this->intervention->update($data);
 
             if(!$update){
                return response()->json(['error'=>'Server error'],500); 
             }else{
-                $subscription = $this->subscription->find($id);
-                return response()->json(['success'=>$subscription],200);
+                $intervention = $this->intervention->find($id);
+                return response()->json(['success'=>$intervention],200);
             }
 
+
+
         }else{
-            return response()->json(['error'=>'subscription not found'], 401);
+            return response()->json(['error'=>'Intervention not found'], 401);
         }
     }
 
@@ -134,18 +141,18 @@ class manageSubscriptionController extends Controller
      */
     public function destroy($id)
     {
-         $subscription = $this->subscription->find($id);
+         $intervention = $this->intervention->find($id);
 
-        if($subscription){
-            $deleted = $this->subscription->delete($id);
+        if($intervention){
+            $deleted = $this->intervention->delete($id);
 
             if($deleted){
-                return response()->json(['success'=>'successfully deleted user.'],200);
+                return response()->json(['success'=>'successfully deleted intervention.'],200);
             }else{
                 return response()->json(['error'=>'Server error'],500);
             }
         }else{
-            return response()->json(['error'=>'subscription not found'], 401);
+            return response()->json(['error'=>'Intervention not found'], 401);
         }
     }
 }

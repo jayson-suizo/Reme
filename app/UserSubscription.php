@@ -2,10 +2,11 @@
 
 namespace App;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 class userSubscription extends Model
-{
+{   
     protected $table = 'user_subscription';
 
      /**
@@ -17,19 +18,35 @@ class userSubscription extends Model
         'user_id', 'subscription_id'
     ];
 
+    public function user()
+    {   
+        return $this->belongsTo('App\User','user_id','id');
+    }
+
+
+    public function subscription(){
+        return $this->belongsTo('App\Subscription','subscription_id','id');
+    }
+
      public function getAll($offset = 0, $limit = 10, $search = [])
     {   
-
         $user_subscription =  new static;
 
         if(isset($search["all"])){
             return $user_subscription->get();
         }else{
             if(isset($search['user_id'])){
+                
                 $user_subscription = $user_subscription->where('user_id',$search['user_id']);
             }
+            if(isset($search['subscription'])){
+                $subscription = $search["subscription"];
+                $user_subscription = $user_subscription->whereHas('subscription',function ($q) use ($subscription){
+                       $q->where('name', $subscription);
+                });
+            }
 
-            $user_subscription = $user_subscription->offset($offset)->limit($limit);
+            $user_subscription = $user_subscription->with('user')->with('subscription')->offset($offset)->limit($limit);
             return $user_subscription->get();
         }
     }
