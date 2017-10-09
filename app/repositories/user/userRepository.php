@@ -4,7 +4,7 @@ namespace App\Repositories\User;
 use App\Repositories\User\userInterface as userInterface;
 use App\User;
 
-class UserRepository implements userInterface
+class userRepository implements userInterface
 {
     public $user;
 
