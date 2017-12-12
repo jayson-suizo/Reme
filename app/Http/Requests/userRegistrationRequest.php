@@ -31,7 +31,7 @@ class userRegistrationRequest extends FormRequest
             'password' => 'required',
             'c_password' => 'required|same:password',
             'gender' => 'required|in:male,female',
-            'age' => 'required|numeric',
+            'age' => 'numeric',
             'profession_type' => 'required|numeric',
             'group_type' => 'required|numeric',
             'user_type' => 'required|numeric',
