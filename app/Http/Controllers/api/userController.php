@@ -66,7 +66,7 @@ class userController extends Controller
         $data = Input::all();
         $data["name"] = $data["first_name"] .' '.$data["last_name"];
         $data["password"] = bcrypt($data["password"]);
-        $data["verification_code"] = rand(1000,9999);
+        $data["verification_code"] = str_random(60);
         $user = $this->user->insert($data);
         Mail::to($data["email"])->send(new registration($user));
         return response()->json(['success'=> $user]);
@@ -103,6 +103,22 @@ class userController extends Controller
 
             }
         }   
+    }
+
+    public function activate($token)
+    {
+      $user = $this->user->findByToken($token);
+
+      if($user) {
+        //activate
+        $update["id"] = $user["id"];
+        $update["verification_code"] = null;
+        $this->user->update($update);
+
+        return redirect('/')->with('status', 'Your account is successfully activated');
+      } else {
+        return redirect('/');
+      }
     }
 
 

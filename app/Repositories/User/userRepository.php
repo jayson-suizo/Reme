@@ -50,4 +50,9 @@ class userRepository implements userInterface
     public function count(){
         return $this->user->countUser();
     }
+
+    public function findByToken($token)
+    {
+        return $this->user->findByToken($token);
+    }
 }

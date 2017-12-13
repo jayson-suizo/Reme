@@ -15,7 +15,7 @@ class AddColumnToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('role',255)->after("group_type")->nullable();
-            $table->integer('verification_code')->after("role")->nullable();
+            $table->string('verification_code')->after("role")->nullable();
         });
     }
 
