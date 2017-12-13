@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\User\UserInterface as UserInterface;
+use App\Repositories\User\userInterface as UserInterface;
 use App\Http\Requests\manageUserRequest;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;

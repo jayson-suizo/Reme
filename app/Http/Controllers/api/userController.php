@@ -15,7 +15,7 @@ use App\Http\Requests\verificationRequest;
 use App\Http\Requests\changePasswordRequest;
 use App\Http\Requests\confirmChangePasswordRequest;
 use Illuminate\Support\Facades\Input;
-use App\Repositories\User\UserInterface as UserInterface;
+use App\Repositories\User\userInterface as UserInterface;
 
 use App\Mail\registration;
 use App\Mail\updateEmail;
