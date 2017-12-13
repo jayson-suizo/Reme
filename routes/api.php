@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('update', 'api\userController@update');
 	Route::post('update/email', 'api\userController@updateEmail');
 	Route::post('verify/update/email', 'api\userController@verifyUpdateEmail');
+	Route::get('user/activation/{token}', 'api\userController@activate');
 });
 Route::post('login', 'api\userController@login');
 Route::post('change/password', 'api\userController@changePassword');

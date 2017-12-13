@@ -88,4 +88,9 @@ class User extends Authenticatable
     public function countUser(){
         return static::count();
     }
+
+    public function findByToken($token)
+    {
+        return static::where('verification_code', $token)->first();
+    }
 }
