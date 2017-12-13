@@ -30,6 +30,7 @@ class registration extends Mailable
      */
     public function build()
     {   
-        return $this->view('email.registration');
+        // return $this->view('email.registration');
+        return $this->view('emails.registration')->with(['activation_link' => '/auth/user/activation/' . $this->user->verification_code]);
     }
 }
