@@ -64,11 +64,13 @@ class userController extends Controller
     public function register(userRegistrationRequest  $request)
     {
         $data = Input::all();
+        $next = $request->get('next');
+
         $data["name"] = $data["first_name"] .' '.$data["last_name"];
         $data["password"] = bcrypt($data["password"]);
         $data["verification_code"] = str_random(60);
         $user = $this->user->insert($data);
-        Mail::to($data["email"])->send(new registration($user));
+        Mail::to($data["email"])->send(new registration($user, $next));
         return response()->json(['success'=> $user]);
 
     }
@@ -105,19 +107,19 @@ class userController extends Controller
         }   
     }
 
-    public function activate($token)
+    public function activate(Request $request, $token)
     {
       $user = $this->user->findByToken($token);
-
+      $next = $request->get('next');
       if($user) {
         //activate
         $update["id"] = $user["id"];
         $update["verification_code"] = null;
         $this->user->update($update);
-
-        return redirect('/')->with('status', 'Your account is successfully activated');
+        
+        return redirect()->to($next);
       } else {
-        return redirect('/');
+        return redirect()->to($next . '?q=failed');
       }
     }
 

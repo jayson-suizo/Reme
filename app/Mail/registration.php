@@ -13,14 +13,17 @@ class registration extends Mailable
 
     public $user;
 
+    public $next;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $next)
     {
         $this->user = $user;
+        $this->next = $next;
     }
 
     /**
@@ -31,6 +34,6 @@ class registration extends Mailable
     public function build()
     {   
         // return $this->view('email.registration');
-        return $this->view('email.registration')->with(['activation_link' => '/auth/user/activation/' . $this->user->verification_code]);
+        return $this->view('email.registration')->with(['activation_link' => '/auth/user/activation/' . $this->user->verification_code . '?next=' . $this->next]);
     }
 }
