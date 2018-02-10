@@ -18,7 +18,7 @@ class ClientSubscription extends Model
     ];
 
     public function  user() {
-        return $this->hasOne('App\user','id','client_id');
+        return $this->hasOne('App\User','id','client_id');
     }
 
 
