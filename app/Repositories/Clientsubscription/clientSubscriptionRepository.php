@@ -1,14 +1,14 @@
 <?php
 namespace App\Repositories\ClientSubscription;
 
-use App\Repositories\ClientSubscription\clientSubscriptionInterface as clientSubscriptionInterface;
-use App\clientSubscription;
+use App\Repositories\ClientSubscription\ClientSubscriptionInterface as ClientSubscriptionInterface;
+use App\ClientSubscription;
 
-class ClientSubscriptionRepository implements clientSubscriptionInterface
+class ClientSubscriptionRepository implements ClientSubscriptionInterface
 {
     public $client_subscription;
 
-    function __construct(clientSubscription $client_subscription) {
+    function __construct(ClientSubscription $client_subscription) {
 	$this->client_subscription = $client_subscription;
     }
 
