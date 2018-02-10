@@ -27,7 +27,6 @@ Route::group(['middleware' => 'auth:api'], function(){
 Route::post('login', 'api\userController@login');
 Route::post('change/password', 'api\userController@changePassword');
 Route::post('confirm/change/password', 'api\userController@confirmChangePassword');
-Route::get('auth/user/activation/{token}', 'api\userController@activate');
 
 Route::post('register', 'api\userController@register');
 Route::post('verify', 'api\userController@verify');
@@ -52,4 +51,6 @@ Route::resource('manage/user/type','api\manageUserTypeController',['except' => [
 Route::resource('manage/interventions','api\manageInterventionController',['except' => ['create','edit']]);
 
 Route::resource('manage/music','api\manageMusicController',['except' => ['create','edit']]);
+
+Route::resource('manage/client/subscriptions','api\manageClientSubscriptionController',['except' => ['create','edit']]);
 
