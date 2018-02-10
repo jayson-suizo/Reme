@@ -1,0 +1,63 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ClientSubscription extends Model
+{
+    protected $table = 'client_subscription';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'code', 'client_id','purchased_date','date_expired','status'
+    ];
+
+
+
+     public function getAll($offset = 0, $limit = 10, $search = [])
+    {   
+
+        $client_subscription =  new static;
+
+        if(isset($search["all"])){
+            return $client_subscription->get();
+        }else{
+             if(isset($search['name'])){
+                $client_subscription = $client_subscription->where('name','like', '%'.$search['name'].'%');
+            }
+
+            $client_subscription = $client_subscription->offset($offset)->limit($limit);
+            return $client_subscription->get();
+        }
+    }
+
+    public function findClientSubscription($id)
+    {	
+        return static::find($id);
+    }
+
+     public function InsertClientSubscription($data)
+    {
+        return static::create($data);
+    }
+
+    public function deleteClientSubscription($id)
+    {
+        return static::find($id)->delete();
+    }
+
+   
+    public function updateClientSubscription($data)
+    {
+        return static::find($data['id'])->update($data);
+    }
+
+    public function countClientSubscription(){
+        return static::count();
+    }
+}

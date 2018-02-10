@@ -52,3 +52,5 @@ Route::resource('manage/interventions','api\manageInterventionController',['exce
 
 Route::resource('manage/music','api\manageMusicController',['except' => ['create','edit']]);
 
+Route::resource('manage/client/subscriptions','api\manageClientSubscriptionController',['except' => ['create','edit']]);
+

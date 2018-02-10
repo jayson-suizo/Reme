@@ -48,6 +48,8 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\Music\musicInterface', 'App\Repositories\Music\musicRepository');
 
+        $this->app->bind('App\Repositories\ClientSubscription\clientSubscriptionInterface', 'App\Repositories\ClientSubscription\clientSubscriptionRepository');
+
 
     }
 }
