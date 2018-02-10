@@ -17,6 +17,10 @@ class ClientSubscription extends Model
         'code', 'client_id','purchased_date','date_expired','status'
     ];
 
+    public function  user() {
+        return $this->hasOne('App\user','id','client_id');
+    }
+
 
 
      public function getAll($offset = 0, $limit = 10, $search = [])
@@ -25,13 +29,14 @@ class ClientSubscription extends Model
         $client_subscription =  new static;
 
         if(isset($search["all"])){
-            return $client_subscription->get();
+            return $client_subscription->with('user')->get();
         }else{
+
              if(isset($search['name'])){
                 $client_subscription = $client_subscription->where('name','like', '%'.$search['name'].'%');
             }
 
-            $client_subscription = $client_subscription->offset($offset)->limit($limit);
+            $client_subscription = $client_subscription->with('user')->offset($offset)->limit($limit);
             return $client_subscription->get();
         }
     }
