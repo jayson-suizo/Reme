@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Input;
 class manageClientSubscriptionController extends Controller
 {   
 
-    public function __construct(clientSubscriptionInterface $client_subscription){
+    public function __construct(ClientSubscriptionInterface $client_subscription){
         $this->client_subscription = $client_subscription;
     }
 
