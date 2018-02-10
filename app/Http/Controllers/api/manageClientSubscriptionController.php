@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\ClientSubscription\clientSubscriptionInterface as clientSubscriptionInterface;
+use App\Repositories\ClientSubscription\ClientSubscriptionInterface as ClientSubscriptionInterface;
 use App\Http\Requests\manageClientSubscriptionRequest;
 use Illuminate\Support\Facades\Input;
 

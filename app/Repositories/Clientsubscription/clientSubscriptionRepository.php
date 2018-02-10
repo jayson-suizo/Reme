@@ -4,7 +4,7 @@ namespace App\Repositories\ClientSubscription;
 use App\Repositories\ClientSubscription\clientSubscriptionInterface as clientSubscriptionInterface;
 use App\clientSubscription;
 
-class clientSubscriptionRepository implements clientSubscriptionInterface
+class ClientSubscriptionRepository implements clientSubscriptionInterface
 {
     public $client_subscription;
 

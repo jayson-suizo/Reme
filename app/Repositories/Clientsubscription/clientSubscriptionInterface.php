@@ -2,7 +2,7 @@
 
 namespace App\Repositories\ClientSubscription;
 
-interface clientSubscriptionInterface {
+interface ClientSubscriptionInterface {
 
     public function getAll($offset, $limit, $search);
 
