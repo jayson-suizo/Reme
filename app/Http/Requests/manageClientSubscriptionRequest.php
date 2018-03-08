@@ -27,6 +27,7 @@ class manageClientSubscriptionRequest extends FormRequest
             case 'POST':{
                 return [
                     'code' => 'required',
+                    'purchased_date' => 'date',
                     'date_expired' => 'required',
                     'status' => 'required',
                 ];
@@ -35,6 +36,7 @@ class manageClientSubscriptionRequest extends FormRequest
             case 'PUT':{
                 return [
                     'code' => 'required',
+                    'purchased_date' => 'date',
                     'date_expired' => 'required',
                     'status' => 'required',
                 ];
