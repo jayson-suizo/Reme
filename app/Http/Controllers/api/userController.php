@@ -329,6 +329,10 @@ class userController extends Controller
       $data = Input::only("id", "archive");
       $user = $this->user->find($data["id"]);
 
+      $data["discharged_date"] = new Date();
+
+      print_r($data);
+
       if(!$user) {
         
         return response()->json(['error' => 'data not available.'], 500);
