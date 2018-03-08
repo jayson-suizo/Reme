@@ -54,3 +54,5 @@ Route::resource('manage/music','api\manageMusicController',['except' => ['create
 
 Route::resource('manage/client/subscriptions','api\manageClientSubscriptionController',['except' => ['create','edit']]);
 
+Route::post("archive/user",'api\userController@archiveUser');
+
