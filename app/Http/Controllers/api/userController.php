@@ -323,4 +323,27 @@ class userController extends Controller
     }
 
 
+
+    public function archiveUser() {
+     
+      $data = Input::only("id", "archive");
+      $user = $this->user->find($data["id"]);
+
+      if(!$user) {
+        
+        return response()->json(['error' => 'data not available.'], 500);
+      
+      }else {
+          $updated = $this->user->update($data);
+
+          if(!$updated){
+
+            return response()->json(['error' => 'server error.'], 500); 
+          }else {
+            return response()->json(['success' => "user successfully updated."], 200);
+          }
+      }
+    }
+
+
 }
