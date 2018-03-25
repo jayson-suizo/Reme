@@ -4,19 +4,19 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class manageClientSubscriptionRequest extends FormRequest
+class manageCustomerDoctorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+     public function authorize()
     {
         return true;
     }
 
-   /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -26,19 +26,17 @@ class manageClientSubscriptionRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':{
                 return [
-                    'code' => 'required',
-                    'purchased_date' => 'date',
-                    'date_expired' => 'required',
-                    'status' => 'required',
+                    'customer_id' => 'required',
+                    'doctor_id' => 'required',
+                    
                 ];
             }
             break;
             case 'PUT':{
-                return [
-                    'code' => 'required',
-                    'purchased_date' => 'date',
-                    'date_expired' => 'required',
-                    'status' => 'required',
+               return [
+                    'customer_id' => 'required',
+                    'doctor_id' => 'required',
+                    
                 ];
 
             }
