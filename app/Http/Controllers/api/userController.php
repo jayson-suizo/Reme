@@ -16,6 +16,7 @@ use App\Http\Requests\changePasswordRequest;
 use App\Http\Requests\confirmChangePasswordRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\userInterface as UserInterface;
+use App\Repositories\CustomerDoctor\customerDoctorInterface as customerDoctorInterface;
 
 use App\Mail\registration;
 use App\Mail\updateEmail;
@@ -24,8 +25,8 @@ use Mail;
 
 class userController extends Controller
 {
-    public function __construct(UserInterface $user)
-    {
+    public function __construct(UserInterface $user, customerDoctorInterface $customer_doctor)
+    {   $this->customer_doctor = $customer_doctor;
         $this->user = $user;
     }
     /**
@@ -132,7 +133,15 @@ class userController extends Controller
     public function details()
     {  
        $user = Auth::user();
-        return response()->json(['success' => $user], 200);
+
+       if($user["role"] == "doctor") {
+        $customer_doctor = $this->customer_doctor->getAllByDoctorId($user["id"]);
+        $user["customer"] = $customer_doctor;
+       }
+
+
+
+       return response()->json(['success' => $user], 200);
     }
 
 

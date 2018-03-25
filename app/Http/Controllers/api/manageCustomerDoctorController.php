@@ -86,7 +86,7 @@ class manageCustomerDoctorController extends Controller
         if($customer_doctor){
             return response()->json(['success'=>$customer_doctor], 200);
         }else{
-            return response()->json(['error'=>'Activity not found'], 401);
+            return response()->json(['error'=>'customernot found'], 401);
         }
     }
 

@@ -37,6 +37,10 @@ class customerDoctorRepository implements customerDoctorInterface
         return $this->customer_doctor->updateCustomerDoctor($data);
     }
 
+    public function getAllByDoctorId($doctor_id) {
+        return $this->customer_doctor->getAllByDoctorId($doctor_id);
+    }
+
     public function count(){
         return $this->customer_doctor->countCustomerDoctor();
     }

@@ -14,5 +14,7 @@ interface customerDoctorInterface {
 
     public function update($data);
 
+    public function getAllByDoctorId($doctor_id);
+
     public function count();
 }

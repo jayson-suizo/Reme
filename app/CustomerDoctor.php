@@ -57,6 +57,10 @@ class CustomerDoctor extends Model
         return static::find($data['id'])->update($data);
     }
 
+    public function getAllByDoctorId($doctor_id) {
+        return static::where("doctor_id",$doctor_id)->get();
+    }
+
     public function countCustomerDoctor(){
         return static::count();
     }
