@@ -8,7 +8,7 @@
             You've successfully registered on Reme Application.<br/>
             Please Click the link below to activate your account : <br/>
 
-            <p><a href="{!! env('APP_URL') !!}{{ $activation_link }}">{!! env('APP_URL') !!}{{ $activation_link }}</a></p>	
+            <p><a href="{!! env('APP_URL') !!}{{ $activation_link }}">{!! env('server.reme.cloud') !!}{{ $activation_link }}</a></p>	
 
        Thanks,
        <br/>Reme Administrator		
