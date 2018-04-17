@@ -298,7 +298,7 @@ class userController extends Controller
          
          if($data['password_verification_code'] != $user['password_verification_code']){
 
-            return response()->json(['error' => 'verification code does not match.'], 500);
+            return response()->json(['error' => 'verification code does not match.'], 200);
         
          }else{
             $data['password'] = bcrypt($user["new_password"]);
