@@ -9,7 +9,7 @@
             Please verify your account new password using this verification code : <h4>{{$user['password_verification_code']}}</h4>
 
             Please click the link below
-            <p><a href="http://reme-front-end.com/clients/#!/confirm-password">Verify Code</a></p>
+            <p><a href="http://reme-front-end.com/#!/confirm-password">Verify Code</a></p>
 
        Thanks,
        <br/>Reme Administrator		
