@@ -35,7 +35,7 @@ class userRegistrationRequest extends FormRequest
             'profession_type' => 'required|numeric',
             'group_type' => 'required|numeric',
             'user_type' => 'required|numeric',
-            'role' => 'required|in:admin,customer',
+            'role' => 'required|in:admin,customer,doctor',
         ];
     }
 
