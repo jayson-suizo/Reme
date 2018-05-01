@@ -22,8 +22,8 @@ class manageUserSubscriptionController extends Controller
     public function index()
     {
         $search = [];
-        $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
-        $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+        //$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+        //$limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
 
         if(isset($_GET['all'])){
             $search['all'] = true;
