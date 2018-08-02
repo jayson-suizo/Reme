@@ -175,11 +175,5 @@ class manageClientSubscriptionController extends Controller
         } else {
             return response()->json(['error'=>'Client Subscription not found'], 401);
         }
-
-        
-        
-
-        // return response()->json(['error'=>'Client Subscription not found'], 401);
-
     } 
 }
