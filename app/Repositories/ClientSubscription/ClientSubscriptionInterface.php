@@ -8,6 +8,8 @@ interface ClientSubscriptionInterface {
 
     public function find($id);
 
+    public function getSubscription($code);
+
     public function insert($data);
 
     public function delete($id);

@@ -65,4 +65,8 @@ class ClientSubscription extends Model
     public function countClientSubscription(){
         return static::count();
     }
+
+    public function getSubscription($code) {
+         return static::where("code",$code)->with('user')->first();
+    }
 }

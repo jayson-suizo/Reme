@@ -35,6 +35,8 @@ class userController extends Controller
      */
     public function login(){
 
+
+
         $remember = (Input::has('remember')) ? true : false;
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')],$remember)){

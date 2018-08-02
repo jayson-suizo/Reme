@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('verify/update/email', 'api\userController@verifyUpdateEmail');
 
 });
+
+
 Route::post('login', 'api\userController@login');
 Route::post('change/password', 'api\userController@changePassword');
 Route::post('confirm/change/password', 'api\userController@confirmChangePassword');
@@ -53,4 +55,6 @@ Route::resource('manage/interventions','api\manageInterventionController',['exce
 Route::resource('manage/music','api\manageMusicController',['except' => ['create','edit']]);
 
 Route::resource('manage/client/subscriptions','api\manageClientSubscriptionController',['except' => ['create','edit']]);
+
+Route::get('subscription/{code}', 'api\manageClientSubscriptionController@subscription');
 
