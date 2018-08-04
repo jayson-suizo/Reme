@@ -17,7 +17,7 @@ class Music extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url',
+        'name', 'url','selected_session','music_type'
     ];
 
 
@@ -28,6 +28,10 @@ class Music extends Model
         $music =  new static;
 
         if(isset($search["all"])){
+
+            if(isset($search["selected_session"])) {
+                $music = $music->where("selected_session",$search["selected_session"]);
+            }
             return $music->get();
         }else{
              if(isset($search['name'])){
@@ -63,4 +67,6 @@ class Music extends Model
     public function countMusic(){
         return static::count();
     }
+
+    
 }

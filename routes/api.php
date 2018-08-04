@@ -64,4 +64,6 @@ Route::get('subscription/{code}', 'api\manageClientSubscriptionController@subscr
 
 Route::resource('manage/client/journal','api\manageJournalController',['except' => ['create','edit']]);
 
+Route::get('manage/music-view/{filename}','api\manageMusicController@viewMusic');
+
 

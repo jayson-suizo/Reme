@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Music\musicInterface as musicInterface;
 use App\Http\Requests\manageMusicRequest;
 use Illuminate\Support\Facades\Input;
+use File;
 
 
 class manageMusicController extends Controller
@@ -26,20 +27,23 @@ class manageMusicController extends Controller
         $search = [];
         $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-
-        if(isset($_GET['all'])){
-            $search['all'] = true;
+        $search['all'] = true;
+            
+        if(isset($_GET["selected_session"])) {
+            $search['selected_session'] = $_GET["selected_session"];
         }
-        
-        // if(isset($_GET['name'])){
-        //     $search['name'] = $_GET['name'];
-        // }
 
         $data = $this->music->getAll($offset, $limit, $search);
+       
+
+        foreach ($data as $key => $value) {
+            $data[$key]["url"] = url()->current()."-view/".$data[$key]["url"];
+        }
+
         $data['offset'] = isset($_GET['all']) ? 'all' :$offset;
         $data['limit'] = isset($_GET['all']) ? 'all' : $limit;
         $data['total'] = 0;
-        
+
         $data['total'] = $this->music->count();
 
         return response()->json(['success'=> $data ], 200);
@@ -155,5 +159,21 @@ class manageMusicController extends Controller
         }else{
             return response()->json(['error'=>'Music not found'], 401);
         }
+    }
+
+    public function viewMusic($filename) {
+           $path = storage_path('app') . '/public/music/' . $filename;
+
+            if(!File::exists($path)){
+                return response()->json(['error'=>'File not found'],400);
+            }
+
+            $file = File::get($path);
+            $type = File::mimeType($path);
+
+            $response = response()->make($file, 200);
+            $response->header("Content-Type", $type);
+
+            return $response;
     }
 }
