@@ -40,4 +40,8 @@ class ClientSubscriptionRepository implements ClientSubscriptionInterface
     public function count(){
         return $this->client_subscription->countClientSubscription();
     }
+
+    public function getSubscription($code) {
+        return $this->client_subscription->getSubscription($code);
+    }
 }

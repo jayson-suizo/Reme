@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('verify/update/email', 'api\userController@verifyUpdateEmail');
 
 });
+
+
 Route::post('login', 'api\userController@login');
 Route::post('change/password', 'api\userController@changePassword');
 Route::post('confirm/change/password', 'api\userController@confirmChangePassword');
@@ -57,4 +59,7 @@ Route::resource('manage/client/subscriptions','api\manageClientSubscriptionContr
 Route::resource('manage/customer/doctors','api\manageCustomerDoctorController',['except' => ['create','edit']]);
 
 Route::post("archive/user",'api\userController@archiveUser');
+
+Route::get('subscription/{code}', 'api\manageClientSubscriptionController@subscription');
+
 

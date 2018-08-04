@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ClientSubscription\ClientSubscriptionInterface as ClientSubscriptionInterface;
 use App\Http\Requests\manageClientSubscriptionRequest;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class manageClientSubscriptionController extends Controller
 {   
@@ -155,4 +156,24 @@ class manageClientSubscriptionController extends Controller
             return response()->json(['error'=>'Client Subscription not found'], 401);
         }
     }
+
+
+    public function subscription($code){
+        $date_now = Carbon::now();
+
+        $client_subscription =  $this->client_subscription->getSubscription($code);
+    
+        if($client_subscription) {
+           $date_expired = $client_subscription->date_expired;
+           if($date_now < $date_expired) {
+                return response()->json(['success'=> $client_subscription ], 200);
+           } else {
+                return response()->json(['error'=>'Expired Subscription'], 200);
+           }
+           
+
+        } else {
+            return response()->json(['error'=>'Client Subscription not found'], 401);
+        }
+    } 
 }
