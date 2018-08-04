@@ -52,6 +52,7 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\CustomerDoctor\customerDoctorInterface', 'App\Repositories\CustomerDoctor\customerDoctorRepository');
 
+        $this->app->bind('App\Repositories\Journal\journalInterface', 'App\Repositories\Journal\journalRepository');
 
 
     }

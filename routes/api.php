@@ -62,4 +62,6 @@ Route::post("archive/user",'api\userController@archiveUser');
 
 Route::get('subscription/{code}', 'api\manageClientSubscriptionController@subscription');
 
+Route::resource('manage/client/journal','api\manageJournalController',['except' => ['create','edit']]);
+
 
