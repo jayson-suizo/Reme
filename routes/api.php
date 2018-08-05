@@ -66,4 +66,6 @@ Route::resource('manage/client/journal','api\manageJournalController',['except' 
 
 Route::get('manage/music-view/{filename}','api\manageMusicController@viewMusic');
 
+Route::resource('manage/duration','api\manageDurationController',['except' => ['create','edit']]);
+
 

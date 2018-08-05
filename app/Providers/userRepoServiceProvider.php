@@ -54,6 +54,8 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\Journal\journalInterface', 'App\Repositories\Journal\journalRepository');
 
+        $this->app->bind('App\Repositories\Duration\durationInterface', 'App\Repositories\Duration\durationRepository');
+
 
     }
 }
