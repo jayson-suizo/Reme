@@ -43,9 +43,9 @@ class userController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')],$remember)){
 
             $user = Auth::user();
-            if($user["verification_code"] != null){
+            if($user["role"] == "client"){
 
-               return response()->json(['error'=>'User not yet verified.'], 401); 
+               return response()->json(['error'=>'Client user not allowed to login.'], 401); 
             }else{
 
                 $success['token'] =  $user->createToken('MyApp')->accessToken;
