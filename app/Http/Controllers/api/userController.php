@@ -22,6 +22,7 @@ use App\Mail\registration;
 use App\Mail\updateEmail;
 use App\Mail\changePassword;
 use Mail;
+use App\CustomerDoctor;
 
 class userController extends Controller
 {
@@ -71,9 +72,15 @@ class userController extends Controller
 
         $data["name"] = $data["first_name"] .' '.$data["last_name"];
         $data["password"] = bcrypt($data["password"]);
-        $data["verification_code"] = str_random(60);
+        $data["verification_code"] = "";
         $user = $this->user->insert($data);
-        Mail::to($data["email"])->send(new registration($user, $next));
+       // Mail::to($data["email"])->send(new registration($user, $next));
+
+        if(isset($data["owner_id"])) {
+          $new_data["customer_id"] = $user["id"];
+          $new_data["doctor_id"] = $data["owner_id"];
+          $customer_professional = $this->customer_doctor->insert($new_data);
+        } 
         return response()->json(['success'=> $user]);
 
     }

@@ -30,12 +30,12 @@ class userRegistrationRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'c_password' => 'required|same:password',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required|in:male,female,others',
             'age' => 'numeric',
             'profession_type' => 'required|numeric',
             'group_type' => 'required|numeric',
             'user_type' => 'required|numeric',
-            'role' => 'required|in:admin,customer,doctor',
+            'role' => 'required|in:admin,client,professional',
         ];
     }
 
