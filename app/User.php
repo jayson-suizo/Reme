@@ -32,7 +32,7 @@ class User extends Authenticatable
     ];
 
     public function customerDoctor() {
-        return $this->hasOne('App\customerDoctor','customer_id','id');
+        return $this->hasOne('App\CustomerDoctor','customer_id','id');
     }
 
     public function getAgeAttribute()
