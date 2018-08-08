@@ -27,7 +27,6 @@ class manageUserController extends Controller
         $search = [];
         $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-
        // if(isset($_GET['all'])){
        $search['all'] = true;
       //  }
@@ -37,6 +36,18 @@ class manageUserController extends Controller
         }
 
         $data = $this->user->getAll($offset, $limit, $search);
+
+        if(isset($_GET['doctor_id'])){
+            $search['doctor_id'] = $_GET['doctor_id'];
+            $new_data = [];
+            foreach ($data as $key => $value) {
+                if($value->customerDoctor && $value->customerDoctor["doctor_id"] == $search['doctor_id']) {
+                   $new_data[] = $value; 
+                }
+            }
+         $data = $new_data;
+        }
+        
         $data['offset'] = isset($_GET['all']) ? 'all' :$offset;
         $data['limit'] = isset($_GET['all']) ? 'all' : $limit;
         $data['total'] = 0;
