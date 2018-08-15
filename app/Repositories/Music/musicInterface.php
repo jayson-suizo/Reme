@@ -14,4 +14,6 @@ interface musicInterface {
     public function update($data);
 
     public function count();
+
+    public function lastId();
 }

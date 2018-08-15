@@ -68,5 +68,10 @@ class Music extends Model
         return static::count();
     }
 
+
+    public function lastId() {
+        return static::select('id')->orderBy("id","desc")->first();
+    }
+
     
 }

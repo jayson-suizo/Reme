@@ -27,7 +27,7 @@ class manageMusicRequest extends FormRequest
             case 'POST':{
                 return [
                     'name' => 'required',
-                    'url' => 'required|string',
+                    'file' => 'required',
                 ];
             }
             break;

@@ -40,4 +40,8 @@ class musicRepository implements musicInterface
     public function count(){
         return $this->music->countMusic();
     }
+
+    public function lastId(){
+        return $this->music->lastId();
+    }
 }

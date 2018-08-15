@@ -68,8 +68,14 @@ class manageMusicController extends Controller
     public function store(manageMusicRequest $request)
     {
       
-        $data = Input::all();
-
+        $data = Input::except("file");
+        $music_file = $_FILES;
+        $return = $this->music->lastId();
+        $next_id = $return["id"]+1;
+        $data["url"] = $next_id."_".$music_file["file"]["name"];
+        $destinationPath = storage_path('app') . '/public/music/';
+        $file = $request->file('file');
+        $file->move($destinationPath, $data["url"]);
         $music = $this->music->insert($data);
 
         if($music){
@@ -87,6 +93,7 @@ class manageMusicController extends Controller
      */
     public function show($id)
     {
+
         $music = $this->music->find($id);
 
         if($music){
