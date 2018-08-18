@@ -26,7 +26,7 @@ class updateUserRegistrationRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required|in:male,female,other,rather not to say',
             'age' => 'required|numeric',
             'profession_type' => 'required|numeric',
             'group_type' => 'required|numeric',

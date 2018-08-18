@@ -30,7 +30,7 @@ class userRegistrationRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'c_password' => 'required|same:password',
-            'gender' => 'required|in:male,female,others',
+            'gender' => 'required|in:male,female,other,rather not to say',
             'age' => 'numeric',
             'profession_type' => 'required|numeric',
             'group_type' => 'required|numeric',
