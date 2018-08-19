@@ -21,6 +21,10 @@ class Journal extends Model
         return $this->hasOne('App\User','id','client_id');
     }
 
+    public function customerDoctor() {
+        return $this->hasOne('App\CustomerDoctor','customer_id','client_id');
+    }
+
 
 
      public function getAll($offset = 0, $limit = 10, $search = [])
@@ -32,14 +36,14 @@ class Journal extends Model
             if(isset($search['client_id'])){
                 $journal = $journal->where("client_id",$search["client_id"]);
             }
-            return $journal->with("user")->get();
+            return $journal->with("user")->with("customerDoctor")->get();
         }else{
             if(isset($search['client_id'])){
-                $journal = $journal->with("user")->where("client_id",$search["client_id"]);
+                $journal = $journal->where("client_id",$search["client_id"]);
             }
 
             $journal = $journal->offset($offset)->limit($limit);
-            return $journal->with("user")->get();
+            return $journal->with("user")->with("customerDoctor")->get();
         }
     }
 
