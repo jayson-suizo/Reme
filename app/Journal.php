@@ -17,6 +17,10 @@ class Journal extends Model
         'client_id','selected_session','mood_before','mood_after','comment'
     ];
 
+    public function user() {
+        return $this->hasOne('App\User','id','client_id');
+    }
+
 
 
      public function getAll($offset = 0, $limit = 10, $search = [])
@@ -28,14 +32,14 @@ class Journal extends Model
             if(isset($search['client_id'])){
                 $journal = $journal->where("client_id",$search["client_id"]);
             }
-            return $journal->get();
+            return $journal->with("user")->get();
         }else{
             if(isset($search['client_id'])){
-                $journal = $journal->where("client_id",$search["client_id"]);
+                $journal = $journal->with("user")->where("client_id",$search["client_id"]);
             }
 
             $journal = $journal->offset($offset)->limit($limit);
-            return $journal->get();
+            return $journal->with("user")->get();
         }
     }
 
