@@ -25,12 +25,9 @@ class manageUserLanguageController extends Controller
         $search = [];
         $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-
-        if(isset($_GET['all'])){
-            $search['all'] = true;
-        }
-
         
+        $search['all'] = true;
+
         if(isset($_GET['user_id'])){
             $search['user_id'] = $_GET['user_id'];
         }
