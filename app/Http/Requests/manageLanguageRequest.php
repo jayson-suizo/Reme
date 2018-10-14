@@ -27,14 +27,12 @@ class manageLanguageRequest extends FormRequest
             case 'POST':{
                 return [
                     'language' => 'required|unique:languages',
-                    'lang_code' => 'required',
                 ];
             }
             break;
             case 'PUT':{
                 return [
                     'language' => 'required|unique:languages',
-                    'lang_code' => 'required',
                    
                 ];
 
