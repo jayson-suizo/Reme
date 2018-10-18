@@ -14,7 +14,7 @@ class Language extends Model
      * @var array
      */
     protected $fillable = [
-        'language', 'lang_code'
+        'language', 'lang_code','status',
     ];
 
 
