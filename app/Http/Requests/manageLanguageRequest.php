@@ -32,7 +32,7 @@ class manageLanguageRequest extends FormRequest
             break;
             case 'PUT':{
                 return [
-                    'language' => 'required|unique:languages',
+                   // 'language' => 'required|unique:languages',
                    
                 ];
 
