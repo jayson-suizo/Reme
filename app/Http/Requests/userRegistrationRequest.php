@@ -32,11 +32,8 @@ class userRegistrationRequest extends FormRequest
             'gender' => 'required|in:male,female,other,rather not to say',
             'age' => 'numeric',
             'profession_type' => 'required|numeric',
-            'group_type' => 'required|numeric',
             'user_type' => 'required|numeric',
             'role' => 'required|in:admin,client,professional',
-            'category' => 'required',
-            'group' => 'required|numeric',
         ];
     }
 
