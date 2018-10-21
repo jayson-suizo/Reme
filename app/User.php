@@ -31,6 +31,10 @@ class User extends Authenticatable
         'password', 'remember_token','verification_code','new_email','email_verification_code','new_password','password_verification_code'
     ];
 
+    public function  subscription() {
+        return $this->hasMany('App\ClientSubscription','client_id','id');
+    }
+
     public function customerDoctor() {
         return $this->hasOne('App\CustomerDoctor','customer_id','id');
     }
@@ -46,7 +50,7 @@ class User extends Authenticatable
         $user =  new static;
 
         if(isset($search["all"])){
-            return $user->with('customerDoctor')->get();
+            return $user->with('subscription')->with('customerDoctor')->get();
         }else{
              if(isset($search['name'])){
                 $user = $user->where('name','like', '%'.$search['name'].'%');
