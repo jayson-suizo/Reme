@@ -39,6 +39,10 @@ class User extends Authenticatable
         return $this->hasOne('App\CustomerDoctor','customer_id','id');
     }
 
+     public function group() {
+        return $this->hasOne('App\Group','id','group_type');
+    }
+
     public function getAgeAttribute()
     {
         return Carbon::parse($this->attributes['birth_date'])->age;
@@ -50,7 +54,7 @@ class User extends Authenticatable
         $user =  new static;
 
         if(isset($search["all"])){
-            return $user->with('subscription')->with('customerDoctor')->get();
+            return $user->with('subscription','group','customerDoctor')->get();
         }else{
              if(isset($search['name'])){
                 $user = $user->where('name','like', '%'.$search['name'].'%');
