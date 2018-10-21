@@ -68,4 +68,7 @@ Route::get('manage/music-view/{filename}','api\manageMusicController@viewMusic')
 
 Route::resource('manage/duration','api\manageDurationController',['except' => ['create','edit']]);
 
+Route::resource('manage/group','api\manageGroupController',['except' => ['create','edit']]);
+
+
 

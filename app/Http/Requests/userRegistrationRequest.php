@@ -27,7 +27,6 @@ class userRegistrationRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email|unique:users',
             'password' => 'required',
             'c_password' => 'required|same:password',
             'gender' => 'required|in:male,female,other,rather not to say',
@@ -36,6 +35,8 @@ class userRegistrationRequest extends FormRequest
             'group_type' => 'required|numeric',
             'user_type' => 'required|numeric',
             'role' => 'required|in:admin,client,professional',
+            'category' => 'required',
+            'group' => 'required|numeric',
         ];
     }
 

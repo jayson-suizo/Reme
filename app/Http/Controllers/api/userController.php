@@ -17,18 +17,21 @@ use App\Http\Requests\confirmChangePasswordRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\User\userInterface as UserInterface;
 use App\Repositories\CustomerDoctor\customerDoctorInterface as customerDoctorInterface;
+use App\Repositories\ClientSubscription\ClientSubscriptionInterface as ClientSubscriptionInterface;
 
 use App\Mail\registration;
 use App\Mail\updateEmail;
 use App\Mail\changePassword;
 use Mail;
 use App\CustomerDoctor;
+use Carbon\Carbon;
 
 class userController extends Controller
 {
-    public function __construct(UserInterface $user, customerDoctorInterface $customer_doctor)
+    public function __construct(UserInterface $user, customerDoctorInterface $customer_doctor,ClientSubscriptionInterface $client_subscription )
     {   $this->customer_doctor = $customer_doctor;
         $this->user = $user;
+        $this->client_subscription = $client_subscription;
     }
     /**
      * login api
@@ -74,6 +77,17 @@ class userController extends Controller
         $data["password"] = bcrypt($data["password"]);
         $data["verification_code"] = "";
         $user = $this->user->insert($data);
+
+        if($data["role"] == "client") {
+
+          $user_subscription["purchased_date"] = Carbon::now();
+          $user_subscription["date_expired"] = Carbon::now()->addMonths(6);
+          $user_subscription["status"] = "active";
+          $user_subscription["client_id"] = $user["id"];
+          $user_subscription["code"] = $this->randomCode();
+          $sub = $this->client_subscription->insert($user_subscription);
+        }
+
        // Mail::to($data["email"])->send(new registration($user, $next));
 
         if(isset($data["owner_id"])) {
@@ -365,6 +379,32 @@ class userController extends Controller
             return response()->json(['success' => "user successfully updated."], 200);
           }
       }
+    }
+
+    function randomCode() {
+      $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      
+      $already_taken = true;
+      $max = strlen($characters) - 1;
+
+      do {
+        $randomString = '';
+        $max = strlen($characters) - 1;
+        for ($i = 0; $i < 6; $i++) {
+          $randomString .= $characters[mt_rand(0, $max)];
+        }
+
+        $check_sub = $this->client_subscription->getSubscription($randomString);
+
+        if(!$check_sub) {
+          $already_taken = false;
+        }
+
+      } while ($already_taken);
+
+     
+
+      return $randomString;
     }
 
 
