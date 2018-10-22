@@ -71,4 +71,9 @@ Route::resource('manage/duration','api\manageDurationController',['except' => ['
 Route::resource('manage/group','api\manageGroupController',['except' => ['create','edit']]);
 
 
+Route::resource('manage/audio','api\manageAudioController',['except' => ['create','edit']]);
+
+Route::get('manage/audio-view/{filename}','api\manageAudioController@viewAudio');
+
+
 

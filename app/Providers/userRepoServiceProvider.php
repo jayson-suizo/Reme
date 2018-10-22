@@ -56,6 +56,8 @@ class userRepoServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Repositories\Duration\durationInterface', 'App\Repositories\Duration\durationRepository');
 
+        $this->app->bind('App\Repositories\Audio\audioInterface', 'App\Repositories\Audio\audioRepository');
+
 
     }
 }
