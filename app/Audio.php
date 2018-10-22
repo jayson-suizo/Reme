@@ -25,7 +25,7 @@ class Audio extends Model
     }
 
     public function  language() {
-        return $this->hasOne('App\language','id','language_id');
+        return $this->hasOne('App\Language','id','language_id');
     }
 
 
