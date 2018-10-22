@@ -20,6 +20,14 @@ class Audio extends Model
         'name', 'url','selected_session','language_id','status'
     ];
 
+    public function  session() {
+        return $this->hasOne('App\Duration','id','selected_session');
+    }
+
+    public function  language() {
+        return $this->hasOne('App\language','id','language_id');
+    }
+
 
 
      public function getAll($offset = 0, $limit = 10, $search = [])
@@ -32,7 +40,7 @@ class Audio extends Model
             if(isset($search["selected_session"])) {
                 $audio = $audio->where("selected_session",$search["selected_session"]);
             }
-            return $audio->get();
+            return $audio->with('session','language')->get();
         }else{
              if(isset($search['name'])){
                 $audio = $audio->where('name','like', '%'.$search['name'].'%');
