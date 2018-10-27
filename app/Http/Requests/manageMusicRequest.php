@@ -28,6 +28,7 @@ class manageMusicRequest extends FormRequest
                 return [
                     'name' => 'required',
                     'file' => 'required',
+                    'language_id' => 'required',
                 ];
             }
             break;

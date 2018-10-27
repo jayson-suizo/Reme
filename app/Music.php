@@ -17,8 +17,17 @@ class Music extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url','selected_session','music_type'
+        'name', 'url','selected_session','music_type','language_id','status',
     ];
+
+
+   public function  session() {
+        return $this->hasOne('App\Duration','id','selected_session');
+    }
+
+    public function  language() {
+        return $this->hasOne('App\Language','id','language_id');
+    }
 
 
 
@@ -32,7 +41,7 @@ class Music extends Model
             if(isset($search["selected_session"])) {
                 $music = $music->where("selected_session",$search["selected_session"]);
             }
-            return $music->get();
+            return $music->with('session','language')->get();
         }else{
              if(isset($search['name'])){
                 $music = $music->where('name','like', '%'.$search['name'].'%');
