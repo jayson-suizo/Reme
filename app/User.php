@@ -39,8 +39,12 @@ class User extends Authenticatable
         return $this->hasOne('App\CustomerDoctor','customer_id','id');
     }
 
-     public function group() {
+    public function group() {
         return $this->hasOne('App\Group','id','group_type');
+    }
+
+    public function journal() {
+        return $this->hasMany('App\Journal','client_id','id');
     }
 
     public function getAgeAttribute()
@@ -69,7 +73,7 @@ class User extends Authenticatable
 
     public function findUser($id)
     {
-        return static::find($id);
+        return static::with('group','journal')->find($id);
     }
 
      public function InsertUser($data)
