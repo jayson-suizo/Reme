@@ -163,7 +163,7 @@ class manageClientSubscriptionController extends Controller
 
         $client_subscription =  $this->client_subscription->getSubscription($code);
     
-        if($client_subscription) {
+        if($client_subscription && $client_subscription["user"] != null) {
            $date_expired = $client_subscription->date_expired;
            if($date_now < $date_expired) {
                 return response()->json(['success'=> $client_subscription ], 200);
