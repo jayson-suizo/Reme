@@ -44,7 +44,7 @@ class User extends Authenticatable
     }
 
     public function journal() {
-        return $this->hasMany('App\Journal','client_id','id');
+        return $this->hasMany('App\Journal','client_id','id')->with("session");
     }
 
     public function getAgeAttribute()

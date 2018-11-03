@@ -25,6 +25,10 @@ class Journal extends Model
         return $this->hasOne('App\CustomerDoctor','customer_id','client_id');
     }
 
+    public function session() {
+        return $this->hasOne('App\Duration','id','selected_session');
+    }
+
 
 
      public function getAll($offset = 0, $limit = 10, $search = [])
