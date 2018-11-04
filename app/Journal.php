@@ -40,7 +40,7 @@ class Journal extends Model
             if(isset($search['client_id'])){
                 $journal = $journal->where("client_id",$search["client_id"]);
             }
-            return $journal->with("user","session")->with("customerDoctor")->get();
+            return $journal->with("user","session")->with("customerDoctor")->orderBy("id","desc")->get();
         }else{
             if(isset($search['client_id'])){
                 $journal = $journal->where("client_id",$search["client_id"]);
