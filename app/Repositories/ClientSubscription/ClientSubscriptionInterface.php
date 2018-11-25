@@ -16,5 +16,7 @@ interface ClientSubscriptionInterface {
 
     public function update($data);
 
+    public function updateSubscription($data);
+
     public function count();
 }

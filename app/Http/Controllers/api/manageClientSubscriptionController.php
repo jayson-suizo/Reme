@@ -118,17 +118,20 @@ class manageClientSubscriptionController extends Controller
     public function update(manageClientSubscriptionRequest $request, $id)
     {
         $data = Input::all();
-        $client_subscription = $this->client_subscription->find($id);
-        $data['id'] = $id;
+
+        $client_subscription = $this->client_subscription->getSubscription($data["code"]);
+        $data["purchased_date"] = Carbon::now();
+        $data["date_expired"] = Carbon::now()->addMonths(6);
+        $data["status"] = "active";
 
         if($client_subscription){
 
-            $update = $this->client_subscription->update($data);
+            $update = $this->client_subscription->updateSubscription($data);
 
             if(!$update){
                return response()->json(['error'=>'Server error'],500); 
             }else{
-                $client_subscription = $this->client_subscription->find($id);
+                $client_subscription = $this->client_subscription->getSubscription($data["code"]);
                 return response()->json(['success'=>$client_subscription],200);
             }
 

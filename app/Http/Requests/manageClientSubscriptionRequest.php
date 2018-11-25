@@ -26,19 +26,19 @@ class manageClientSubscriptionRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':{
                 return [
-                    //'code' => 'required',
+                    // 'code' => 'required',
                     // 'purchased_date' => 'date',
                     // 'date_expired' => 'required',
-                    //'status' => 'required',
+                    // 'status' => 'required',
                 ];
             }
             break;
             case 'PUT':{
                 return [
                     'code' => 'required',
-                    'purchased_date' => 'date',
-                    'date_expired' => 'required',
-                    'status' => 'required',
+                    //'client_id' => 'required',
+                    // 'date_expired' => 'required',
+                    // 'status' => 'required',
                 ];
 
             }

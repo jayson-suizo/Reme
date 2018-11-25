@@ -44,4 +44,8 @@ class ClientSubscriptionRepository implements ClientSubscriptionInterface
     public function getSubscription($code) {
         return $this->client_subscription->getSubscription($code);
     }
+
+    public function updateSubscription($data) {
+        return $this->client_subscription->updateSubscription($data);
+    }
 }

@@ -69,4 +69,8 @@ class ClientSubscription extends Model
     public function getSubscription($code) {
          return static::where("code",$code)->with('user')->first();
     }
+
+    public function updateSubscription($data) {
+         return static::where("code",$data["code"])->update($data);
+    }
 }
