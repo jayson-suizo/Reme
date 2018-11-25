@@ -65,6 +65,11 @@ class manageClientSubscriptionController extends Controller
     {   
         $data = Input::all();
 
+        $data["purchased_date"] = Carbon::now();
+        $data["date_expired"] = Carbon::now()->addMonths(6);
+        $data["status"] = "active";
+        $data["code"] = $this->randomCode();
+        $data["status"] = "active";
 
         $client_subscription = $this->client_subscription->insert($data);
 
@@ -175,5 +180,32 @@ class manageClientSubscriptionController extends Controller
         } else {
             return response()->json(['error'=>'Client Subscription not found'], 401);
         }
+    }
+
+
+    function randomCode() {
+      $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      
+      $already_taken = true;
+      $max = strlen($characters) - 1;
+
+      do {
+        $randomString = '';
+        $max = strlen($characters) - 1;
+        for ($i = 0; $i < 6; $i++) {
+          $randomString .= $characters[mt_rand(0, $max)];
+        }
+
+        $check_sub = $this->client_subscription->getSubscription($randomString);
+
+        if(!$check_sub) {
+          $already_taken = false;
+        }
+
+      } while ($already_taken);
+
+     
+
+      return $randomString;
     } 
 }
