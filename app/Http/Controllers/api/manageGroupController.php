@@ -23,6 +23,7 @@ class manageGroupController extends Controller
         $search = [];
         $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+        $search["user_id"] = isset($_GET['user_id']) ? $_GET['user_id'] : 0;
 
         $search['all'] = true;
 

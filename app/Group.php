@@ -22,11 +22,14 @@ class Group extends Model
     {   
 
         $group =  new static;
+        if(isset($search["user_id"])) {
+            return $group->whereIn("user_id", [$search["user_id"],0])->get();
+        }
 
         if(isset($search["all"])){
             return $group->get();
         }else{
-             if(isset($search['name'])){
+            if(isset($search['name'])){
                 $group = $group->where('name','like', '%'.$search['name'].'%');
             }
 
